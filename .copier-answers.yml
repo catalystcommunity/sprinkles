@@ -1,0 +1,24 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 7f32bd1
+_src_path: ../catalystsquad/copier-go-cobra-app/
+codeowners_group: engineers
+create_codeowners: true
+create_settings: true
+create_workflows: true
+db_choice: Postgres
+enable_pull_request_test: true
+full_project_name: github.com/catalystcommunity/sprinkles
+githost: github
+github_private_access: false
+grpc_health_probe: false
+helm_repo: catalystcommunity/charts
+image_host: quay
+image_registry_domain: quay.io
+license_type: apache2
+organization: catalystcommunity
+release_git_user_email: <engineering@catalystsquad.com>
+release_git_user_name: Catalyst Squad Automation
+release_method: semver-tags
+repo_description: github.com/catalystcommunity/sprinkles
+short_project_name: sprinkles
+use_protos: true
