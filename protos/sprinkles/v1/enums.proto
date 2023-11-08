@@ -6,3 +6,14 @@ enum HelloType {
   HELLO_SPECIFIC = 1;
 }
 
+enum OptionType {
+  OPTION_TYPE_BOOLEAN   = 0;
+  OPTION_TYPE_TEXT      = 1;
+  OPTION_TYPE_INTEGER   = 2;
+  OPTION_TYPE_FLOAT     = 3;
+  OPTION_TYPE_DATE      = 4;
+  OPTION_TYPE_TIME      = 5;
+  OPTION_TYPE_ENUM      = 6;
+  OPTION_TYPE_JSON      = 7;
+  OPTION_TYPE_BYTES     = 8;
+}

@@ -26,6 +26,59 @@ service Api {
       post: "/v1/hellos/get"
     };
   }
+  rpc GetOptionDefinitions(GetRequest) returns (OptionDefinitions) {
+    option (google.api.http) = {
+      post: "/v1/option_definitions/get"
+    };
+  }
+  rpc ListOptionDefinitions(ListRequest) returns (OptionDefinitions) {
+    option (google.api.http) = {
+      get: "/v1/option_definitions/list"
+    };
+  }
+  rpc DeleteOptionDefinitions(DeleteRequest) returns (DeleteResponse) {
+    option (google.api.http) = {
+      delete: "/v1/option_definitions/get"
+    };
+  }
+  rpc UpsertOptionDefinitions(UpsertOptionDefinitionsRequest) returns (OptionDefinitions) {
+    option (google.api.http) = {
+      post: "/v1/option_definitions"
+      body:"*"
+    };
+  }
+  rpc GetOptionOverrides(GetRequest) returns (OptionOverrides) {
+    option (google.api.http) = {
+      post: "/v1/option_overrides/get"
+    };
+  }
+  rpc ListOptionOverrides(ListRequest) returns (OptionOverrides) {
+    option (google.api.http) = {
+      get: "/v1/option_overrides/list"
+    };
+  }
+  rpc DeleteOptionOverrides(DeleteRequest) returns (DeleteResponse) {
+    option (google.api.http) = {
+      delete: "/v1/option_overrides/get"
+    };
+  }
+  rpc UpsertOptionOverrides(UpsertOptionOverridesRequest) returns (OptionOverrides) {
+    option (google.api.http) = {
+      post: "/v1/option_overrides"
+      body:"*"
+    };
+  }
+  rpc GetOptionsByGroup(OptionGroupRequest) returns (OptionOverrides) {
+    option (google.api.http) = {
+      post: "/v1/options_by_group/get"
+    };
+  }
+  rpc GetOptionValue(OptionValueRequest) returns (OptionValueResponse) {
+    option (google.api.http) = {
+      post: "/v1/option_value/get"
+    };
+  }
+
   // Health check
   rpc Healthy(Empty) returns (Empty) {
     option (google.api.http) = {get: "/healthy"};

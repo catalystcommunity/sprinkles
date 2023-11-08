@@ -203,6 +203,364 @@
           "Api"
         ]
       }
+    },
+    "/v1/option_definitions": {
+      "post": {
+        "operationId": "Api_UpsertOptionDefinitions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OptionDefinitions"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpsertOptionDefinitionsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      }
+    },
+    "/v1/option_definitions/get": {
+      "delete": {
+        "operationId": "Api_DeleteOptionDefinitions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      },
+      "post": {
+        "operationId": "Api_GetOptionDefinitions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OptionDefinitions"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      }
+    },
+    "/v1/option_definitions/list": {
+      "get": {
+        "operationId": "Api_ListOptionDefinitions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OptionDefinitions"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      }
+    },
+    "/v1/option_overrides": {
+      "post": {
+        "operationId": "Api_UpsertOptionOverrides",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OptionOverrides"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpsertOptionOverridesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      }
+    },
+    "/v1/option_overrides/get": {
+      "delete": {
+        "operationId": "Api_DeleteOptionOverrides",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      },
+      "post": {
+        "operationId": "Api_GetOptionOverrides",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OptionOverrides"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      }
+    },
+    "/v1/option_overrides/list": {
+      "get": {
+        "operationId": "Api_ListOptionOverrides",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OptionOverrides"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      }
+    },
+    "/v1/option_value/get": {
+      "post": {
+        "operationId": "Api_GetOptionValue",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OptionValueResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ignore_groups",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      }
+    },
+    "/v1/options_by_group/get": {
+      "post": {
+        "operationId": "Api_GetOptionsByGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OptionOverrides"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "groups",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "Api"
+        ]
+      }
     }
   },
   "definitions": {
@@ -214,6 +572,14 @@
         }
       },
       "additionalProperties": {}
+    },
+    "protobufNullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
     },
     "rpcStatus": {
       "type": "object",
@@ -248,6 +614,34 @@
     "v1Empty": {
       "type": "object",
       "title": "Do not delete these unless you know what you're doing"
+    },
+    "v1Group": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "group_name": {
+          "type": "string",
+          "title": "@gotags: fake:\"{beername}\""
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32",
+          "title": "@gotags: fake:\"skip\""
+        }
+      }
     },
     "v1Hello": {
       "type": "object",
@@ -297,6 +691,121 @@
       },
       "title": "Below here are the messages that aren't generic"
     },
+    "v1OptionDefinition": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "name": {
+          "type": "string",
+          "title": "@gotags: fake:\"{word}\""
+        },
+        "description": {
+          "type": "string",
+          "title": "@gotags: fake:\"{sentence}\""
+        },
+        "default_value": {
+          "type": "object",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "option_type": {
+          "$ref": "#/definitions/v1OptionType",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "schema": {
+          "type": "object",
+          "title": "@gotags: fake:\"skip\""
+        }
+      }
+    },
+    "v1OptionDefinitions": {
+      "type": "object",
+      "properties": {
+        "optionDefinitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1OptionDefinition"
+          }
+        }
+      }
+    },
+    "v1OptionOverride": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "@gotags: fake:\"skip\""
+        },
+        "optionDefinition": {
+          "$ref": "#/definitions/v1OptionDefinition"
+        },
+        "option_value": {
+          "type": "string",
+          "title": "@gotags: fake:\"{beername}\""
+        },
+        "group": {
+          "$ref": "#/definitions/v1Group"
+        }
+      }
+    },
+    "v1OptionOverrides": {
+      "type": "object",
+      "properties": {
+        "optionOverrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1OptionOverride"
+          }
+        }
+      }
+    },
+    "v1OptionType": {
+      "type": "string",
+      "enum": [
+        "OPTION_TYPE_BOOLEAN",
+        "OPTION_TYPE_TEXT",
+        "OPTION_TYPE_INTEGER",
+        "OPTION_TYPE_FLOAT",
+        "OPTION_TYPE_DATE",
+        "OPTION_TYPE_TIME",
+        "OPTION_TYPE_ENUM",
+        "OPTION_TYPE_JSON",
+        "OPTION_TYPE_BYTES"
+      ],
+      "default": "OPTION_TYPE_BOOLEAN"
+    },
+    "v1OptionValueResponse": {
+      "type": "object",
+      "properties": {
+        "option_value": {
+          "type": "string"
+        }
+      }
+    },
     "v1UpsertHellosRequest": {
       "type": "object",
       "properties": {
@@ -305,6 +814,42 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/v1Hello"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1UpsertOptionDefinitionsRequest": {
+      "type": "object",
+      "properties": {
+        "optionDefinitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1OptionDefinition"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1UpsertOptionOverridesRequest": {
+      "type": "object",
+      "properties": {
+        "optionOverrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1OptionOverride"
           }
         },
         "fields": {

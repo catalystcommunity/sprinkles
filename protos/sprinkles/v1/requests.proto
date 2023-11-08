@@ -30,3 +30,32 @@ message UpsertHellosRequest {
   repeated Hello hellos = 1;
   repeated string fields = 2;
 }
+message OptionDefinitions {
+  repeated OptionDefinition option_definitions = 1;
+}
+
+message UpsertOptionDefinitionsRequest {
+  repeated OptionDefinition option_definitions = 1;
+  repeated string fields = 2;
+}
+message OptionOverrides {
+  repeated OptionOverride option_overrides = 1;
+}
+
+message UpsertOptionOverridesRequest {
+  repeated OptionOverride option_overrides = 1;
+  repeated string fields = 2;
+}
+
+message OptionGroupRequest {
+  repeated string groups = 1;
+}
+
+message OptionValueRequest {
+  string name = 1;
+  repeated string ignore_groups = 2 [json_name = "ignore_groups"];
+}
+
+message OptionValueResponse {
+  string option_value = 1 [json_name = "option_value"];
+}

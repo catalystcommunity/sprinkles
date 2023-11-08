@@ -5,6 +5,8 @@ package sprinklesv1
 
 import (
 	context "context"
+	json "encoding/json"
+	gorm_jsonb "github.com/dariubs/gorm-jsonb"
 	uuid "github.com/google/uuid"
 	lo "github.com/samber/lo"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -219,4 +221,706 @@ func (p *HelloProtos) GetByIds(ctx context.Context, tx *gorm.DB, ids []string, p
 func DeleteHelloGormModels(ctx context.Context, tx *gorm.DB, ids []string) error {
 	statement := tx.Where("id in ?", ids)
 	return statement.Delete(&HelloGormModel{}).Error
+}
+
+type OptionDefinitionGormModels []*OptionDefinitionGormModel
+type OptionDefinitionProtos []*OptionDefinition
+type OptionDefinitionGormModel struct {
+
+	// @gotags: fake:"skip"
+	Id *string `gorm:"type:uuid;primaryKey;default:uuid_generate_v4();" json:"id" fake:"skip"`
+
+	// @gotags: fake:"skip"
+	CreatedAt *time.Time `gorm:"type:timestamp;" json:"created_at" fake:"skip"`
+
+	// @gotags: fake:"skip"
+	UpdatedAt *time.Time `gorm:"type:timestamp;" json:"updated_at" fake:"skip"`
+
+	// @gotags: fake:"{word}"
+	Name string `json:"name" fake:"{word}"`
+
+	// @gotags: fake:"{sentence}"
+	Description string `json:"description" fake:"{sentence}"`
+
+	// @gotags: fake:"skip"
+	DefaultValue gorm_jsonb.JSONB `gorm:"type:jsonb" json:"default_value" fake:"skip"`
+
+	// @gotags: fake:"skip"
+	OptionType int `json:"option_type" fake:"skip"`
+
+	// @gotags: fake:"skip"
+	Schema gorm_jsonb.JSONB `gorm:"type:jsonb" json:"schema" fake:"skip"`
+}
+
+func (m *OptionDefinitionGormModel) TableName() string {
+	return "option_definitions"
+}
+
+func (m OptionDefinitionGormModels) ToProtos() (protos OptionDefinitionProtos, err error) {
+	protos = OptionDefinitionProtos{}
+	for _, model := range m {
+		var proto *OptionDefinition
+		if proto, err = model.ToProto(); err != nil {
+			return
+		}
+		protos = append(protos, proto)
+	}
+	return
+}
+
+func (p OptionDefinitionProtos) ToModels() (models OptionDefinitionGormModels, err error) {
+	models = OptionDefinitionGormModels{}
+	for _, proto := range p {
+		var model *OptionDefinitionGormModel
+		if model, err = proto.ToModel(); err != nil {
+			return
+		}
+		models = append(models, model)
+	}
+	return
+}
+
+func (m *OptionDefinitionGormModel) ToProto() (theProto *OptionDefinition, err error) {
+	if m == nil {
+		return
+	}
+	theProto = &OptionDefinition{}
+
+	theProto.Id = m.Id
+
+	if m.CreatedAt != nil {
+		theProto.CreatedAt = timestamppb.New(*m.CreatedAt)
+	}
+
+	if m.UpdatedAt != nil {
+		theProto.UpdatedAt = timestamppb.New(*m.UpdatedAt)
+	}
+
+	theProto.Name = m.Name
+
+	theProto.Description = m.Description
+
+	if m.DefaultValue != nil {
+		var jsonBytes []byte
+		if jsonBytes, err = json.Marshal(m.DefaultValue); err != nil {
+			return
+		}
+		if err = json.Unmarshal(jsonBytes, &theProto.DefaultValue); err != nil {
+			return
+		}
+	}
+
+	theProto.OptionType = OptionType(m.OptionType)
+
+	if m.Schema != nil {
+		var jsonBytes []byte
+		if jsonBytes, err = json.Marshal(m.Schema); err != nil {
+			return
+		}
+		if err = json.Unmarshal(jsonBytes, &theProto.Schema); err != nil {
+			return
+		}
+	}
+
+	return
+}
+
+func (p *OptionDefinition) ToModel() (theModel *OptionDefinitionGormModel, err error) {
+	if p == nil {
+		return
+	}
+	theModel = &OptionDefinitionGormModel{}
+
+	theModel.Id = p.Id
+
+	if p.CreatedAt != nil {
+		theModel.CreatedAt = lo.ToPtr(p.CreatedAt.AsTime())
+	}
+
+	if p.UpdatedAt != nil {
+		theModel.UpdatedAt = lo.ToPtr(p.UpdatedAt.AsTime())
+	}
+
+	theModel.Name = p.Name
+
+	theModel.Description = p.Description
+
+	if p.DefaultValue != nil {
+		var jsonBytes []byte
+		if jsonBytes, err = json.Marshal(p.DefaultValue); err != nil {
+			return
+		}
+		if err = json.Unmarshal(jsonBytes, &theModel.DefaultValue); err != nil {
+			return
+		}
+	}
+
+	theModel.OptionType = int(p.OptionType)
+
+	if p.Schema != nil {
+		var jsonBytes []byte
+		if jsonBytes, err = json.Marshal(p.Schema); err != nil {
+			return
+		}
+		if err = json.Unmarshal(jsonBytes, &theModel.Schema); err != nil {
+			return
+		}
+	}
+
+	return
+}
+
+func (m OptionDefinitionGormModels) GetByModelIds(ctx context.Context, tx *gorm.DB, preloads ...string) (err error) {
+	ids := []string{}
+	for _, model := range m {
+		if model.Id != nil {
+			ids = append(ids, *model.Id)
+		}
+	}
+	if len(ids) > 0 {
+		statement := tx.Preload(clause.Associations)
+		for _, preload := range preloads {
+			statement = statement.Preload(preload)
+		}
+		err = statement.Where("id in ?", ids).Find(&m).Error
+	}
+	return
+}
+
+func (p *OptionDefinitionProtos) Upsert(ctx context.Context, tx *gorm.DB, selects, omits []string, fullSaveAssociations bool, preloads ...string) (err error) {
+	if p != nil {
+		omitMap := map[string]bool{}
+		for _, omit := range omits {
+			omitMap[omit] = true
+		}
+		creates, updates := []*OptionDefinitionGormModel{}, []*OptionDefinitionGormModel{}
+		nilUid := uuid.Nil.String()
+		var model *OptionDefinitionGormModel
+		for _, proto := range *p {
+			if model, err = proto.ToModel(); err != nil {
+				return
+			} else {
+				if model.Id != nil && *model.Id != "" && *model.Id != nilUid {
+					updates = append(updates, model)
+				} else {
+					creates = append(creates, model)
+				}
+			}
+		}
+		session := tx.Select(selects).Omit(omits...).Session(&gorm.Session{FullSaveAssociations: fullSaveAssociations})
+		if len(creates) > 0 {
+			if err = session.Create(&creates).Error; err != nil {
+				return
+			}
+		}
+		if len(updates) > 0 {
+			toSave := []*OptionDefinitionGormModel{}
+			for _, update := range updates {
+				thing := &OptionDefinitionGormModel{}
+				*thing = *update
+				toSave = append(toSave, thing)
+			}
+			if err = session.Save(&toSave).Error; err != nil {
+				return
+			}
+		}
+		models := OptionDefinitionGormModels{}
+		models = append(creates, updates...)
+		if err = models.GetByModelIds(ctx, tx, preloads...); err != nil {
+			return
+		}
+		if len(models) > 0 {
+			*p, err = models.ToProtos()
+		} else {
+			*p = OptionDefinitionProtos{}
+		}
+	}
+	return
+}
+
+func (p *OptionDefinitionProtos) List(ctx context.Context, tx *gorm.DB, limit, offset int, order interface{}, preloads ...string) (err error) {
+	if p != nil {
+		var models OptionDefinitionGormModels
+		statement := tx.Preload(clause.Associations).Limit(limit).Offset(offset)
+		for _, preload := range preloads {
+			statement = statement.Preload(preload)
+		}
+		if order != nil {
+			statement = statement.Order(order)
+		}
+		if err = statement.Find(&models).Error; err != nil {
+			return
+		}
+		if len(models) > 0 {
+			*p, err = models.ToProtos()
+		} else {
+			*p = OptionDefinitionProtos{}
+		}
+	}
+	return
+}
+
+func (p *OptionDefinitionProtos) GetByIds(ctx context.Context, tx *gorm.DB, ids []string, preloads ...string) (err error) {
+	if p != nil {
+		var models OptionDefinitionGormModels
+		statement := tx.Preload(clause.Associations)
+		for _, preload := range preloads {
+			statement = statement.Preload(preload)
+		}
+		if err = statement.Where("id in ?", ids).Find(&models).Error; err != nil {
+			return
+		}
+		if len(models) > 0 {
+			*p, err = models.ToProtos()
+		} else {
+			*p = OptionDefinitionProtos{}
+		}
+	}
+	return
+}
+
+func DeleteOptionDefinitionGormModels(ctx context.Context, tx *gorm.DB, ids []string) error {
+	statement := tx.Where("id in ?", ids)
+	return statement.Delete(&OptionDefinitionGormModel{}).Error
+}
+
+type OptionOverrideGormModels []*OptionOverrideGormModel
+type OptionOverrideProtos []*OptionOverride
+type OptionOverrideGormModel struct {
+
+	// @gotags: fake:"skip"
+	Id *string `gorm:"type:uuid;primaryKey;default:uuid_generate_v4();" json:"id" fake:"skip"`
+
+	// @gotags: fake:"skip"
+	CreatedAt *time.Time `gorm:"type:timestamp;" json:"created_at" fake:"skip"`
+
+	// @gotags: fake:"skip"
+	UpdatedAt *time.Time `gorm:"type:timestamp;" json:"updated_at" fake:"skip"`
+
+	OptionDefinition *OptionDefinitionGormModel `gorm:"foreignKey:OptionOverrideId;references:Id;" json:"optionDefinition"`
+
+	// @gotags: fake:"{beername}"
+	OptionValue string `json:"option_value" fake:"{beername}"`
+
+	Group *GroupGormModel `gorm:"foreignKey:OptionOverrideId;references:Id;" json:"group"`
+}
+
+func (m *OptionOverrideGormModel) TableName() string {
+	return "option_overrides"
+}
+
+func (m OptionOverrideGormModels) ToProtos() (protos OptionOverrideProtos, err error) {
+	protos = OptionOverrideProtos{}
+	for _, model := range m {
+		var proto *OptionOverride
+		if proto, err = model.ToProto(); err != nil {
+			return
+		}
+		protos = append(protos, proto)
+	}
+	return
+}
+
+func (p OptionOverrideProtos) ToModels() (models OptionOverrideGormModels, err error) {
+	models = OptionOverrideGormModels{}
+	for _, proto := range p {
+		var model *OptionOverrideGormModel
+		if model, err = proto.ToModel(); err != nil {
+			return
+		}
+		models = append(models, model)
+	}
+	return
+}
+
+func (m *OptionOverrideGormModel) ToProto() (theProto *OptionOverride, err error) {
+	if m == nil {
+		return
+	}
+	theProto = &OptionOverride{}
+
+	theProto.Id = m.Id
+
+	if m.CreatedAt != nil {
+		theProto.CreatedAt = timestamppb.New(*m.CreatedAt)
+	}
+
+	if m.UpdatedAt != nil {
+		theProto.UpdatedAt = timestamppb.New(*m.UpdatedAt)
+	}
+
+	if theProto.OptionDefinition, err = m.OptionDefinition.ToProto(); err != nil {
+		return
+	}
+
+	theProto.OptionValue = m.OptionValue
+
+	if theProto.Group, err = m.Group.ToProto(); err != nil {
+		return
+	}
+
+	return
+}
+
+func (p *OptionOverride) ToModel() (theModel *OptionOverrideGormModel, err error) {
+	if p == nil {
+		return
+	}
+	theModel = &OptionOverrideGormModel{}
+
+	theModel.Id = p.Id
+
+	if p.CreatedAt != nil {
+		theModel.CreatedAt = lo.ToPtr(p.CreatedAt.AsTime())
+	}
+
+	if p.UpdatedAt != nil {
+		theModel.UpdatedAt = lo.ToPtr(p.UpdatedAt.AsTime())
+	}
+
+	if theModel.OptionDefinition, err = p.OptionDefinition.ToModel(); err != nil {
+		return
+	}
+
+	theModel.OptionValue = p.OptionValue
+
+	if theModel.Group, err = p.Group.ToModel(); err != nil {
+		return
+	}
+
+	return
+}
+
+func (m OptionOverrideGormModels) GetByModelIds(ctx context.Context, tx *gorm.DB, preloads ...string) (err error) {
+	ids := []string{}
+	for _, model := range m {
+		if model.Id != nil {
+			ids = append(ids, *model.Id)
+		}
+	}
+	if len(ids) > 0 {
+		statement := tx.Preload(clause.Associations)
+		for _, preload := range preloads {
+			statement = statement.Preload(preload)
+		}
+		err = statement.Where("id in ?", ids).Find(&m).Error
+	}
+	return
+}
+
+func (p *OptionOverrideProtos) Upsert(ctx context.Context, tx *gorm.DB, selects, omits []string, fullSaveAssociations bool, preloads ...string) (err error) {
+	if p != nil {
+		omitMap := map[string]bool{}
+		for _, omit := range omits {
+			omitMap[omit] = true
+		}
+		creates, updates := []*OptionOverrideGormModel{}, []*OptionOverrideGormModel{}
+		nilUid := uuid.Nil.String()
+		var model *OptionOverrideGormModel
+		for _, proto := range *p {
+			if model, err = proto.ToModel(); err != nil {
+				return
+			} else {
+				if model.Id != nil && *model.Id != "" && *model.Id != nilUid {
+					updates = append(updates, model)
+				} else {
+					creates = append(creates, model)
+				}
+			}
+		}
+		session := tx.Select(selects).Omit(omits...).Session(&gorm.Session{FullSaveAssociations: fullSaveAssociations})
+		if len(creates) > 0 {
+			if err = session.Create(&creates).Error; err != nil {
+				return
+			}
+		}
+		if len(updates) > 0 {
+			toSave := []*OptionOverrideGormModel{}
+			for _, update := range updates {
+				thing := &OptionOverrideGormModel{}
+				*thing = *update
+				toSave = append(toSave, thing)
+			}
+			if !omitMap["OptionDefinition"] {
+				clearOptionDefinitionStatement := tx.Model(&updates).Association("OptionDefinition").Unscoped()
+				if err = clearOptionDefinitionStatement.Clear(); err != nil {
+					return
+				}
+			}
+			if !omitMap["Group"] {
+				clearGroupStatement := tx.Model(&updates).Association("Group").Unscoped()
+				if err = clearGroupStatement.Clear(); err != nil {
+					return
+				}
+			}
+			if err = session.Save(&toSave).Error; err != nil {
+				return
+			}
+		}
+		models := OptionOverrideGormModels{}
+		models = append(creates, updates...)
+		if err = models.GetByModelIds(ctx, tx, preloads...); err != nil {
+			return
+		}
+		if len(models) > 0 {
+			*p, err = models.ToProtos()
+		} else {
+			*p = OptionOverrideProtos{}
+		}
+	}
+	return
+}
+
+func (p *OptionOverrideProtos) List(ctx context.Context, tx *gorm.DB, limit, offset int, order interface{}, preloads ...string) (err error) {
+	if p != nil {
+		var models OptionOverrideGormModels
+		statement := tx.Preload(clause.Associations).Limit(limit).Offset(offset)
+		for _, preload := range preloads {
+			statement = statement.Preload(preload)
+		}
+		if order != nil {
+			statement = statement.Order(order)
+		}
+		if err = statement.Find(&models).Error; err != nil {
+			return
+		}
+		if len(models) > 0 {
+			*p, err = models.ToProtos()
+		} else {
+			*p = OptionOverrideProtos{}
+		}
+	}
+	return
+}
+
+func (p *OptionOverrideProtos) GetByIds(ctx context.Context, tx *gorm.DB, ids []string, preloads ...string) (err error) {
+	if p != nil {
+		var models OptionOverrideGormModels
+		statement := tx.Preload(clause.Associations)
+		for _, preload := range preloads {
+			statement = statement.Preload(preload)
+		}
+		if err = statement.Where("id in ?", ids).Find(&models).Error; err != nil {
+			return
+		}
+		if len(models) > 0 {
+			*p, err = models.ToProtos()
+		} else {
+			*p = OptionOverrideProtos{}
+		}
+	}
+	return
+}
+
+func DeleteOptionOverrideGormModels(ctx context.Context, tx *gorm.DB, ids []string) error {
+	statement := tx.Where("id in ?", ids)
+	return statement.Delete(&OptionOverrideGormModel{}).Error
+}
+
+type GroupGormModels []*GroupGormModel
+type GroupProtos []*Group
+type GroupGormModel struct {
+
+	// @gotags: fake:"skip"
+	Id *string `gorm:"type:uuid;primaryKey;default:uuid_generate_v4();" json:"id" fake:"skip"`
+
+	// @gotags: fake:"skip"
+	CreatedAt *time.Time `gorm:"type:timestamp;" json:"created_at" fake:"skip"`
+
+	// @gotags: fake:"skip"
+	UpdatedAt *time.Time `gorm:"type:timestamp;" json:"updated_at" fake:"skip"`
+
+	// @gotags: fake:"{beername}"
+	GroupName string `json:"group_name" fake:"{beername}"`
+
+	// @gotags: fake:"skip"
+	Weight int32 `json:"weight" fake:"skip"`
+}
+
+func (m *GroupGormModel) TableName() string {
+	return "groups"
+}
+
+func (m GroupGormModels) ToProtos() (protos GroupProtos, err error) {
+	protos = GroupProtos{}
+	for _, model := range m {
+		var proto *Group
+		if proto, err = model.ToProto(); err != nil {
+			return
+		}
+		protos = append(protos, proto)
+	}
+	return
+}
+
+func (p GroupProtos) ToModels() (models GroupGormModels, err error) {
+	models = GroupGormModels{}
+	for _, proto := range p {
+		var model *GroupGormModel
+		if model, err = proto.ToModel(); err != nil {
+			return
+		}
+		models = append(models, model)
+	}
+	return
+}
+
+func (m *GroupGormModel) ToProto() (theProto *Group, err error) {
+	if m == nil {
+		return
+	}
+	theProto = &Group{}
+
+	theProto.Id = m.Id
+
+	if m.CreatedAt != nil {
+		theProto.CreatedAt = timestamppb.New(*m.CreatedAt)
+	}
+
+	if m.UpdatedAt != nil {
+		theProto.UpdatedAt = timestamppb.New(*m.UpdatedAt)
+	}
+
+	theProto.GroupName = m.GroupName
+
+	theProto.Weight = m.Weight
+
+	return
+}
+
+func (p *Group) ToModel() (theModel *GroupGormModel, err error) {
+	if p == nil {
+		return
+	}
+	theModel = &GroupGormModel{}
+
+	theModel.Id = p.Id
+
+	if p.CreatedAt != nil {
+		theModel.CreatedAt = lo.ToPtr(p.CreatedAt.AsTime())
+	}
+
+	if p.UpdatedAt != nil {
+		theModel.UpdatedAt = lo.ToPtr(p.UpdatedAt.AsTime())
+	}
+
+	theModel.GroupName = p.GroupName
+
+	theModel.Weight = p.Weight
+
+	return
+}
+
+func (m GroupGormModels) GetByModelIds(ctx context.Context, tx *gorm.DB, preloads ...string) (err error) {
+	ids := []string{}
+	for _, model := range m {
+		if model.Id != nil {
+			ids = append(ids, *model.Id)
+		}
+	}
+	if len(ids) > 0 {
+		statement := tx.Preload(clause.Associations)
+		for _, preload := range preloads {
+			statement = statement.Preload(preload)
+		}
+		err = statement.Where("id in ?", ids).Find(&m).Error
+	}
+	return
+}
+
+func (p *GroupProtos) Upsert(ctx context.Context, tx *gorm.DB, selects, omits []string, fullSaveAssociations bool, preloads ...string) (err error) {
+	if p != nil {
+		omitMap := map[string]bool{}
+		for _, omit := range omits {
+			omitMap[omit] = true
+		}
+		creates, updates := []*GroupGormModel{}, []*GroupGormModel{}
+		nilUid := uuid.Nil.String()
+		var model *GroupGormModel
+		for _, proto := range *p {
+			if model, err = proto.ToModel(); err != nil {
+				return
+			} else {
+				if model.Id != nil && *model.Id != "" && *model.Id != nilUid {
+					updates = append(updates, model)
+				} else {
+					creates = append(creates, model)
+				}
+			}
+		}
+		session := tx.Select(selects).Omit(omits...).Session(&gorm.Session{FullSaveAssociations: fullSaveAssociations})
+		if len(creates) > 0 {
+			if err = session.Create(&creates).Error; err != nil {
+				return
+			}
+		}
+		if len(updates) > 0 {
+			toSave := []*GroupGormModel{}
+			for _, update := range updates {
+				thing := &GroupGormModel{}
+				*thing = *update
+				toSave = append(toSave, thing)
+			}
+			if err = session.Save(&toSave).Error; err != nil {
+				return
+			}
+		}
+		models := GroupGormModels{}
+		models = append(creates, updates...)
+		if err = models.GetByModelIds(ctx, tx, preloads...); err != nil {
+			return
+		}
+		if len(models) > 0 {
+			*p, err = models.ToProtos()
+		} else {
+			*p = GroupProtos{}
+		}
+	}
+	return
+}
+
+func (p *GroupProtos) List(ctx context.Context, tx *gorm.DB, limit, offset int, order interface{}, preloads ...string) (err error) {
+	if p != nil {
+		var models GroupGormModels
+		statement := tx.Preload(clause.Associations).Limit(limit).Offset(offset)
+		for _, preload := range preloads {
+			statement = statement.Preload(preload)
+		}
+		if order != nil {
+			statement = statement.Order(order)
+		}
+		if err = statement.Find(&models).Error; err != nil {
+			return
+		}
+		if len(models) > 0 {
+			*p, err = models.ToProtos()
+		} else {
+			*p = GroupProtos{}
+		}
+	}
+	return
+}
+
+func (p *GroupProtos) GetByIds(ctx context.Context, tx *gorm.DB, ids []string, preloads ...string) (err error) {
+	if p != nil {
+		var models GroupGormModels
+		statement := tx.Preload(clause.Associations)
+		for _, preload := range preloads {
+			statement = statement.Preload(preload)
+		}
+		if err = statement.Where("id in ?", ids).Find(&models).Error; err != nil {
+			return
+		}
+		if len(models) > 0 {
+			*p, err = models.ToProtos()
+		} else {
+			*p = GroupProtos{}
+		}
+	}
+	return
+}
+
+func DeleteGroupGormModels(ctx context.Context, tx *gorm.DB, ids []string) error {
+	statement := tx.Where("id in ?", ids)
+	return statement.Delete(&GroupGormModel{}).Error
 }

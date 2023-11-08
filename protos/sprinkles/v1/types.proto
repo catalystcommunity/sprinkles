@@ -6,7 +6,6 @@ import "google/protobuf/timestamp.proto";
 import "sprinkles/v1/enums.proto";
 import "google/protobuf/struct.proto";
 
-
 message Hello {
   option (gorm.opts) = {ormable: true};
   // @gotags: fake:"skip"
@@ -19,4 +18,52 @@ message Hello {
   HelloType hello_type = 4 [json_name = "hello_type"];
   // @gotags: fake:"{beername}"
   optional string person_name = 5 [json_name = "person_name"];
+}
+
+message OptionDefinition {
+  option (gorm.opts) = {ormable: true};
+  // @gotags: fake:"skip"
+  optional string id = 1 [json_name = "id"];
+  // @gotags: fake:"skip"
+  google.protobuf.Timestamp created_at = 2 [json_name = "created_at"];
+  // @gotags: fake:"skip"
+  google.protobuf.Timestamp updated_at = 3 [json_name = "updated_at"];
+  // @gotags: fake:"{word}"
+  string name = 4 [json_name = "name"];
+  // @gotags: fake:"{sentence}"
+  string description = 5 [json_name = "description"];
+  // @gotags: fake:"skip"
+  google.protobuf.Struct default_value = 6 [json_name = "default_value"];
+  // @gotags: fake:"skip"
+  OptionType option_type = 7 [json_name = "option_type"];
+  // @gotags: fake:"skip"
+  optional google.protobuf.Struct schema = 8 [json_name = "schema"];
+}
+
+message OptionOverride {
+  option (gorm.opts) = {ormable: true};
+  // @gotags: fake:"skip"
+  optional string id = 1 [json_name = "id"];
+  // @gotags: fake:"skip"
+  google.protobuf.Timestamp created_at = 2 [json_name = "created_at"];
+  // @gotags: fake:"skip"
+  google.protobuf.Timestamp updated_at = 3 [json_name = "updated_at"];
+  OptionDefinition option_definition = 4 [(gorm.field).has_one = {}];
+  // @gotags: fake:"{beername}"
+  string option_value = 5 [json_name = "option_value"];
+  Group group = 6 [(gorm.field).has_one = {}];
+}
+
+message Group {
+  option (gorm.opts) = {ormable: true};
+  // @gotags: fake:"skip"
+  optional string id = 1 [json_name = "id"];
+  // @gotags: fake:"skip"
+  google.protobuf.Timestamp created_at = 2 [json_name = "created_at"];
+  // @gotags: fake:"skip"
+  google.protobuf.Timestamp updated_at = 3 [json_name = "updated_at"];
+  // @gotags: fake:"{beername}"
+  string group_name = 4 [json_name = "group_name"];
+  // @gotags: fake:"skip"
+  int32 weight = 5 [json_name = "weight"];
 }

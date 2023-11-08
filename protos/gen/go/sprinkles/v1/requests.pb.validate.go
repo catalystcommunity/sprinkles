@@ -804,3 +804,857 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpsertHellosRequestValidationError{}
+
+// Validate checks the field values on OptionDefinitions with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *OptionDefinitions) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OptionDefinitions with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OptionDefinitionsMultiError, or nil if none found.
+func (m *OptionDefinitions) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OptionDefinitions) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetOptionDefinitions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, OptionDefinitionsValidationError{
+						field:  fmt.Sprintf("OptionDefinitions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, OptionDefinitionsValidationError{
+						field:  fmt.Sprintf("OptionDefinitions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return OptionDefinitionsValidationError{
+					field:  fmt.Sprintf("OptionDefinitions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return OptionDefinitionsMultiError(errors)
+	}
+
+	return nil
+}
+
+// OptionDefinitionsMultiError is an error wrapping multiple validation errors
+// returned by OptionDefinitions.ValidateAll() if the designated constraints
+// aren't met.
+type OptionDefinitionsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OptionDefinitionsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OptionDefinitionsMultiError) AllErrors() []error { return m }
+
+// OptionDefinitionsValidationError is the validation error returned by
+// OptionDefinitions.Validate if the designated constraints aren't met.
+type OptionDefinitionsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OptionDefinitionsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OptionDefinitionsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OptionDefinitionsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OptionDefinitionsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OptionDefinitionsValidationError) ErrorName() string {
+	return "OptionDefinitionsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e OptionDefinitionsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOptionDefinitions.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OptionDefinitionsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OptionDefinitionsValidationError{}
+
+// Validate checks the field values on UpsertOptionDefinitionsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpsertOptionDefinitionsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpsertOptionDefinitionsRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// UpsertOptionDefinitionsRequestMultiError, or nil if none found.
+func (m *UpsertOptionDefinitionsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpsertOptionDefinitionsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetOptionDefinitions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpsertOptionDefinitionsRequestValidationError{
+						field:  fmt.Sprintf("OptionDefinitions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpsertOptionDefinitionsRequestValidationError{
+						field:  fmt.Sprintf("OptionDefinitions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpsertOptionDefinitionsRequestValidationError{
+					field:  fmt.Sprintf("OptionDefinitions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UpsertOptionDefinitionsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpsertOptionDefinitionsRequestMultiError is an error wrapping multiple
+// validation errors returned by UpsertOptionDefinitionsRequest.ValidateAll()
+// if the designated constraints aren't met.
+type UpsertOptionDefinitionsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpsertOptionDefinitionsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpsertOptionDefinitionsRequestMultiError) AllErrors() []error { return m }
+
+// UpsertOptionDefinitionsRequestValidationError is the validation error
+// returned by UpsertOptionDefinitionsRequest.Validate if the designated
+// constraints aren't met.
+type UpsertOptionDefinitionsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpsertOptionDefinitionsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpsertOptionDefinitionsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpsertOptionDefinitionsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpsertOptionDefinitionsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpsertOptionDefinitionsRequestValidationError) ErrorName() string {
+	return "UpsertOptionDefinitionsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpsertOptionDefinitionsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpsertOptionDefinitionsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpsertOptionDefinitionsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpsertOptionDefinitionsRequestValidationError{}
+
+// Validate checks the field values on OptionOverrides with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *OptionOverrides) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OptionOverrides with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OptionOverridesMultiError, or nil if none found.
+func (m *OptionOverrides) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OptionOverrides) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetOptionOverrides() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, OptionOverridesValidationError{
+						field:  fmt.Sprintf("OptionOverrides[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, OptionOverridesValidationError{
+						field:  fmt.Sprintf("OptionOverrides[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return OptionOverridesValidationError{
+					field:  fmt.Sprintf("OptionOverrides[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return OptionOverridesMultiError(errors)
+	}
+
+	return nil
+}
+
+// OptionOverridesMultiError is an error wrapping multiple validation errors
+// returned by OptionOverrides.ValidateAll() if the designated constraints
+// aren't met.
+type OptionOverridesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OptionOverridesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OptionOverridesMultiError) AllErrors() []error { return m }
+
+// OptionOverridesValidationError is the validation error returned by
+// OptionOverrides.Validate if the designated constraints aren't met.
+type OptionOverridesValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OptionOverridesValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OptionOverridesValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OptionOverridesValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OptionOverridesValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OptionOverridesValidationError) ErrorName() string { return "OptionOverridesValidationError" }
+
+// Error satisfies the builtin error interface
+func (e OptionOverridesValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOptionOverrides.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OptionOverridesValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OptionOverridesValidationError{}
+
+// Validate checks the field values on UpsertOptionOverridesRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpsertOptionOverridesRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpsertOptionOverridesRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpsertOptionOverridesRequestMultiError, or nil if none found.
+func (m *UpsertOptionOverridesRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpsertOptionOverridesRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetOptionOverrides() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpsertOptionOverridesRequestValidationError{
+						field:  fmt.Sprintf("OptionOverrides[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpsertOptionOverridesRequestValidationError{
+						field:  fmt.Sprintf("OptionOverrides[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpsertOptionOverridesRequestValidationError{
+					field:  fmt.Sprintf("OptionOverrides[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UpsertOptionOverridesRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpsertOptionOverridesRequestMultiError is an error wrapping multiple
+// validation errors returned by UpsertOptionOverridesRequest.ValidateAll() if
+// the designated constraints aren't met.
+type UpsertOptionOverridesRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpsertOptionOverridesRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpsertOptionOverridesRequestMultiError) AllErrors() []error { return m }
+
+// UpsertOptionOverridesRequestValidationError is the validation error returned
+// by UpsertOptionOverridesRequest.Validate if the designated constraints
+// aren't met.
+type UpsertOptionOverridesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpsertOptionOverridesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpsertOptionOverridesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpsertOptionOverridesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpsertOptionOverridesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpsertOptionOverridesRequestValidationError) ErrorName() string {
+	return "UpsertOptionOverridesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpsertOptionOverridesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpsertOptionOverridesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpsertOptionOverridesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpsertOptionOverridesRequestValidationError{}
+
+// Validate checks the field values on OptionGroupRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *OptionGroupRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OptionGroupRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OptionGroupRequestMultiError, or nil if none found.
+func (m *OptionGroupRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OptionGroupRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return OptionGroupRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// OptionGroupRequestMultiError is an error wrapping multiple validation errors
+// returned by OptionGroupRequest.ValidateAll() if the designated constraints
+// aren't met.
+type OptionGroupRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OptionGroupRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OptionGroupRequestMultiError) AllErrors() []error { return m }
+
+// OptionGroupRequestValidationError is the validation error returned by
+// OptionGroupRequest.Validate if the designated constraints aren't met.
+type OptionGroupRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OptionGroupRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OptionGroupRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OptionGroupRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OptionGroupRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OptionGroupRequestValidationError) ErrorName() string {
+	return "OptionGroupRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e OptionGroupRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOptionGroupRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OptionGroupRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OptionGroupRequestValidationError{}
+
+// Validate checks the field values on OptionValueRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *OptionValueRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OptionValueRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OptionValueRequestMultiError, or nil if none found.
+func (m *OptionValueRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OptionValueRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	if len(errors) > 0 {
+		return OptionValueRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// OptionValueRequestMultiError is an error wrapping multiple validation errors
+// returned by OptionValueRequest.ValidateAll() if the designated constraints
+// aren't met.
+type OptionValueRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OptionValueRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OptionValueRequestMultiError) AllErrors() []error { return m }
+
+// OptionValueRequestValidationError is the validation error returned by
+// OptionValueRequest.Validate if the designated constraints aren't met.
+type OptionValueRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OptionValueRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OptionValueRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OptionValueRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OptionValueRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OptionValueRequestValidationError) ErrorName() string {
+	return "OptionValueRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e OptionValueRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOptionValueRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OptionValueRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OptionValueRequestValidationError{}
+
+// Validate checks the field values on OptionValueResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *OptionValueResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OptionValueResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OptionValueResponseMultiError, or nil if none found.
+func (m *OptionValueResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OptionValueResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for OptionValue
+
+	if len(errors) > 0 {
+		return OptionValueResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// OptionValueResponseMultiError is an error wrapping multiple validation
+// errors returned by OptionValueResponse.ValidateAll() if the designated
+// constraints aren't met.
+type OptionValueResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OptionValueResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OptionValueResponseMultiError) AllErrors() []error { return m }
+
+// OptionValueResponseValidationError is the validation error returned by
+// OptionValueResponse.Validate if the designated constraints aren't met.
+type OptionValueResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OptionValueResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OptionValueResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OptionValueResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OptionValueResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OptionValueResponseValidationError) ErrorName() string {
+	return "OptionValueResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e OptionValueResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOptionValueResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OptionValueResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OptionValueResponseValidationError{}

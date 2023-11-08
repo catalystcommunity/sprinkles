@@ -57,3 +57,77 @@ func GetHellosById(ids []string) ([]*sprinklesv1.Hello, error) {
 	response, err := ApiClient.GetHellos(ctx, &sprinklesv1.GetRequest{Ids: ids})
 	return response.Hellos, err
 }
+
+func GetOptionDefinitions(ids []string) ([]*sprinklesv1.OptionDefinition, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	response, err := ApiClient.GetOptionDefinitions(ctx, &sprinklesv1.GetRequest{Ids: ids})
+	return response.OptionDefinitions, err
+}
+
+func ListOptionDefinitions(limit, offset int, orderBy string) ([]*sprinklesv1.OptionDefinition, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	response, err := ApiClient.ListOptionDefinitions(ctx, &sprinklesv1.ListRequest{Limit: int32(limit), Offset: int32(offset), OrderBy: orderBy})
+	if err != nil {
+		return nil, err
+	}
+	return response.OptionDefinitions, err
+}
+
+func DeleteOptionDefinitions(ids []string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	_, err := ApiClient.DeleteOptionDefinitions(ctx, &sprinklesv1.DeleteRequest{Ids: ids})
+	return err
+}
+
+func UpsertOptionDefinitions(option_definitions []*sprinklesv1.OptionDefinition) ([]*sprinklesv1.OptionDefinition, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	response, err := ApiClient.UpsertOptionDefinitions(ctx, &sprinklesv1.UpsertOptionDefinitionsRequest{OptionDefinitions: option_definitions})
+	if err != nil {
+		return nil, err
+	} else if response == nil {
+		return nil, nil
+	} else {
+		return response.OptionDefinitions, err
+	}
+}
+
+func GetOptionOverrides(ids []string) ([]*sprinklesv1.OptionOverride, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	response, err := ApiClient.GetOptionOverrides(ctx, &sprinklesv1.GetRequest{Ids: ids})
+	return response.OptionOverrides, err
+}
+
+func ListOptionOverrides(limit, offset int, orderBy string) ([]*sprinklesv1.OptionOverride, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	response, err := ApiClient.ListOptionOverrides(ctx, &sprinklesv1.ListRequest{Limit: int32(limit), Offset: int32(offset), OrderBy: orderBy})
+	if err != nil {
+		return nil, err
+	}
+	return response.OptionOverrides, err
+}
+
+func DeleteOptionOverrides(ids []string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	_, err := ApiClient.DeleteOptionOverrides(ctx, &sprinklesv1.DeleteRequest{Ids: ids})
+	return err
+}
+
+func UpsertOptionOverrides(option_overrides []*sprinklesv1.OptionOverride) ([]*sprinklesv1.OptionOverride, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	response, err := ApiClient.UpsertOptionOverrides(ctx, &sprinklesv1.UpsertOptionOverridesRequest{OptionOverrides: option_overrides})
+	if err != nil {
+		return nil, err
+	} else if response == nil {
+		return nil, nil
+	} else {
+		return response.OptionOverrides, err
+	}
+}

@@ -366,6 +366,359 @@ func (x *UpsertHellosRequest) GetFields() []string {
 	return nil
 }
 
+type OptionDefinitions struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OptionDefinitions []*OptionDefinition `protobuf:"bytes,1,rep,name=option_definitions,json=optionDefinitions,proto3" json:"option_definitions,omitempty"`
+}
+
+func (x *OptionDefinitions) Reset() {
+	*x = OptionDefinitions{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sprinkles_v1_requests_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OptionDefinitions) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OptionDefinitions) ProtoMessage() {}
+
+func (x *OptionDefinitions) ProtoReflect() protoreflect.Message {
+	mi := &file_sprinkles_v1_requests_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OptionDefinitions.ProtoReflect.Descriptor instead.
+func (*OptionDefinitions) Descriptor() ([]byte, []int) {
+	return file_sprinkles_v1_requests_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *OptionDefinitions) GetOptionDefinitions() []*OptionDefinition {
+	if x != nil {
+		return x.OptionDefinitions
+	}
+	return nil
+}
+
+type UpsertOptionDefinitionsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OptionDefinitions []*OptionDefinition `protobuf:"bytes,1,rep,name=option_definitions,json=optionDefinitions,proto3" json:"option_definitions,omitempty"`
+	Fields            []string            `protobuf:"bytes,2,rep,name=fields,proto3" json:"fields,omitempty"`
+}
+
+func (x *UpsertOptionDefinitionsRequest) Reset() {
+	*x = UpsertOptionDefinitionsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sprinkles_v1_requests_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpsertOptionDefinitionsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpsertOptionDefinitionsRequest) ProtoMessage() {}
+
+func (x *UpsertOptionDefinitionsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sprinkles_v1_requests_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpsertOptionDefinitionsRequest.ProtoReflect.Descriptor instead.
+func (*UpsertOptionDefinitionsRequest) Descriptor() ([]byte, []int) {
+	return file_sprinkles_v1_requests_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *UpsertOptionDefinitionsRequest) GetOptionDefinitions() []*OptionDefinition {
+	if x != nil {
+		return x.OptionDefinitions
+	}
+	return nil
+}
+
+func (x *UpsertOptionDefinitionsRequest) GetFields() []string {
+	if x != nil {
+		return x.Fields
+	}
+	return nil
+}
+
+type OptionOverrides struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OptionOverrides []*OptionOverride `protobuf:"bytes,1,rep,name=option_overrides,json=optionOverrides,proto3" json:"option_overrides,omitempty"`
+}
+
+func (x *OptionOverrides) Reset() {
+	*x = OptionOverrides{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sprinkles_v1_requests_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OptionOverrides) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OptionOverrides) ProtoMessage() {}
+
+func (x *OptionOverrides) ProtoReflect() protoreflect.Message {
+	mi := &file_sprinkles_v1_requests_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OptionOverrides.ProtoReflect.Descriptor instead.
+func (*OptionOverrides) Descriptor() ([]byte, []int) {
+	return file_sprinkles_v1_requests_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *OptionOverrides) GetOptionOverrides() []*OptionOverride {
+	if x != nil {
+		return x.OptionOverrides
+	}
+	return nil
+}
+
+type UpsertOptionOverridesRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OptionOverrides []*OptionOverride `protobuf:"bytes,1,rep,name=option_overrides,json=optionOverrides,proto3" json:"option_overrides,omitempty"`
+	Fields          []string          `protobuf:"bytes,2,rep,name=fields,proto3" json:"fields,omitempty"`
+}
+
+func (x *UpsertOptionOverridesRequest) Reset() {
+	*x = UpsertOptionOverridesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sprinkles_v1_requests_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpsertOptionOverridesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpsertOptionOverridesRequest) ProtoMessage() {}
+
+func (x *UpsertOptionOverridesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sprinkles_v1_requests_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpsertOptionOverridesRequest.ProtoReflect.Descriptor instead.
+func (*UpsertOptionOverridesRequest) Descriptor() ([]byte, []int) {
+	return file_sprinkles_v1_requests_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *UpsertOptionOverridesRequest) GetOptionOverrides() []*OptionOverride {
+	if x != nil {
+		return x.OptionOverrides
+	}
+	return nil
+}
+
+func (x *UpsertOptionOverridesRequest) GetFields() []string {
+	if x != nil {
+		return x.Fields
+	}
+	return nil
+}
+
+type OptionGroupRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Groups []string `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+}
+
+func (x *OptionGroupRequest) Reset() {
+	*x = OptionGroupRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sprinkles_v1_requests_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OptionGroupRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OptionGroupRequest) ProtoMessage() {}
+
+func (x *OptionGroupRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sprinkles_v1_requests_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OptionGroupRequest.ProtoReflect.Descriptor instead.
+func (*OptionGroupRequest) Descriptor() ([]byte, []int) {
+	return file_sprinkles_v1_requests_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *OptionGroupRequest) GetGroups() []string {
+	if x != nil {
+		return x.Groups
+	}
+	return nil
+}
+
+type OptionValueRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name         string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	IgnoreGroups []string `protobuf:"bytes,2,rep,name=ignore_groups,proto3" json:"ignore_groups,omitempty"`
+}
+
+func (x *OptionValueRequest) Reset() {
+	*x = OptionValueRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sprinkles_v1_requests_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OptionValueRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OptionValueRequest) ProtoMessage() {}
+
+func (x *OptionValueRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sprinkles_v1_requests_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OptionValueRequest.ProtoReflect.Descriptor instead.
+func (*OptionValueRequest) Descriptor() ([]byte, []int) {
+	return file_sprinkles_v1_requests_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *OptionValueRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *OptionValueRequest) GetIgnoreGroups() []string {
+	if x != nil {
+		return x.IgnoreGroups
+	}
+	return nil
+}
+
+type OptionValueResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OptionValue string `protobuf:"bytes,1,opt,name=option_value,proto3" json:"option_value,omitempty"`
+}
+
+func (x *OptionValueResponse) Reset() {
+	*x = OptionValueResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_sprinkles_v1_requests_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OptionValueResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OptionValueResponse) ProtoMessage() {}
+
+func (x *OptionValueResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sprinkles_v1_requests_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OptionValueResponse.ProtoReflect.Descriptor instead.
+func (*OptionValueResponse) Descriptor() ([]byte, []int) {
+	return file_sprinkles_v1_requests_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *OptionValueResponse) GetOptionValue() string {
+	if x != nil {
+		return x.OptionValue
+	}
+	return ""
+}
+
 var File_sprinkles_v1_requests_proto protoreflect.FileDescriptor
 
 var file_sprinkles_v1_requests_proto_rawDesc = []byte{
@@ -396,20 +749,60 @@ var file_sprinkles_v1_requests_proto_rawDesc = []byte{
 	0x6c, 0x6c, 0x6f, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x73, 0x70, 0x72,
 	0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x52,
 	0x06, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x73, 0x12, 0x16, 0x0a, 0x06, 0x66, 0x69, 0x65, 0x6c, 0x64,
-	0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x06, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x42,
-	0xc1, 0x01, 0x0a, 0x10, 0x63, 0x6f, 0x6d, 0x2e, 0x73, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65,
-	0x73, 0x2e, 0x76, 0x31, 0x42, 0x0d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x73, 0x50, 0x72,
-	0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x4d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x79, 0x73, 0x74, 0x63, 0x6f, 0x6d, 0x6d, 0x75, 0x6e,
-	0x69, 0x74, 0x79, 0x2f, 0x73, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2f, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f, 0x73, 0x70, 0x72, 0x69,
-	0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x73, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c,
-	0x65, 0x73, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x53, 0x58, 0x58, 0xaa, 0x02, 0x0c, 0x53, 0x70, 0x72,
-	0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x0c, 0x53, 0x70, 0x72, 0x69,
-	0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x18, 0x53, 0x70, 0x72, 0x69, 0x6e,
-	0x6b, 0x6c, 0x65, 0x73, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
-	0x61, 0x74, 0x61, 0xea, 0x02, 0x0d, 0x53, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x3a,
-	0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x06, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x22,
+	0x62, 0x0a, 0x11, 0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74,
+	0x69, 0x6f, 0x6e, 0x73, 0x12, 0x4d, 0x0a, 0x12, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x64,
+	0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x1e, 0x2e, 0x73, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e,
+	0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x11, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69,
+	0x6f, 0x6e, 0x73, 0x22, 0x87, 0x01, 0x0a, 0x1e, 0x55, 0x70, 0x73, 0x65, 0x72, 0x74, 0x4f, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4d, 0x0a, 0x12, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x5f, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03,
+	0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x73, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2e, 0x76,
+	0x31, 0x2e, 0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x11, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69,
+	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x16, 0x0a, 0x06, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x18,
+	0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x06, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x22, 0x5a, 0x0a,
+	0x0f, 0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x4f, 0x76, 0x65, 0x72, 0x72, 0x69, 0x64, 0x65, 0x73,
+	0x12, 0x47, 0x0a, 0x10, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6f, 0x76, 0x65, 0x72, 0x72,
+	0x69, 0x64, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x73, 0x70, 0x72,
+	0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x4f, 0x76, 0x65, 0x72, 0x72, 0x69, 0x64, 0x65, 0x52, 0x0f, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x4f, 0x76, 0x65, 0x72, 0x72, 0x69, 0x64, 0x65, 0x73, 0x22, 0x7f, 0x0a, 0x1c, 0x55, 0x70, 0x73,
+	0x65, 0x72, 0x74, 0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x4f, 0x76, 0x65, 0x72, 0x72, 0x69, 0x64,
+	0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x47, 0x0a, 0x10, 0x6f, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x5f, 0x6f, 0x76, 0x65, 0x72, 0x72, 0x69, 0x64, 0x65, 0x73, 0x18, 0x01, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x73, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2e,
+	0x76, 0x31, 0x2e, 0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x4f, 0x76, 0x65, 0x72, 0x72, 0x69, 0x64,
+	0x65, 0x52, 0x0f, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x4f, 0x76, 0x65, 0x72, 0x72, 0x69, 0x64,
+	0x65, 0x73, 0x12, 0x16, 0x0a, 0x06, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x18, 0x02, 0x20, 0x03,
+	0x28, 0x09, 0x52, 0x06, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x73, 0x22, 0x2c, 0x0a, 0x12, 0x4f, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x16, 0x0a, 0x06, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09,
+	0x52, 0x06, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x22, 0x4e, 0x0a, 0x12, 0x4f, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12,
+	0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61,
+	0x6d, 0x65, 0x12, 0x24, 0x0a, 0x0d, 0x69, 0x67, 0x6e, 0x6f, 0x72, 0x65, 0x5f, 0x67, 0x72, 0x6f,
+	0x75, 0x70, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0d, 0x69, 0x67, 0x6e, 0x6f, 0x72,
+	0x65, 0x5f, 0x67, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x22, 0x39, 0x0a, 0x13, 0x4f, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x22, 0x0a, 0x0c, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x76, 0x61,
+	0x6c, 0x75, 0x65, 0x42, 0xc1, 0x01, 0x0a, 0x10, 0x63, 0x6f, 0x6d, 0x2e, 0x73, 0x70, 0x72, 0x69,
+	0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x42, 0x0d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x4d, 0x67, 0x69, 0x74, 0x68, 0x75,
+	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x79, 0x73, 0x74, 0x63, 0x6f,
+	0x6d, 0x6d, 0x75, 0x6e, 0x69, 0x74, 0x79, 0x2f, 0x73, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65,
+	0x73, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f,
+	0x73, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x73, 0x70, 0x72,
+	0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x76, 0x31, 0xa2, 0x02, 0x03, 0x53, 0x58, 0x58, 0xaa, 0x02,
+	0x0c, 0x53, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x2e, 0x56, 0x31, 0xca, 0x02, 0x0c,
+	0x53, 0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x5c, 0x56, 0x31, 0xe2, 0x02, 0x18, 0x53,
+	0x70, 0x72, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x73, 0x5c, 0x56, 0x31, 0x5c, 0x47, 0x50, 0x42, 0x4d,
+	0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0d, 0x53, 0x70, 0x72, 0x69, 0x6e, 0x6b,
+	0x6c, 0x65, 0x73, 0x3a, 0x3a, 0x56, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -424,25 +817,38 @@ func file_sprinkles_v1_requests_proto_rawDescGZIP() []byte {
 	return file_sprinkles_v1_requests_proto_rawDescData
 }
 
-var file_sprinkles_v1_requests_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_sprinkles_v1_requests_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_sprinkles_v1_requests_proto_goTypes = []interface{}{
-	(*Empty)(nil),               // 0: sprinkles.v1.Empty
-	(*ListRequest)(nil),         // 1: sprinkles.v1.ListRequest
-	(*DeleteRequest)(nil),       // 2: sprinkles.v1.DeleteRequest
-	(*DeleteResponse)(nil),      // 3: sprinkles.v1.DeleteResponse
-	(*GetRequest)(nil),          // 4: sprinkles.v1.GetRequest
-	(*Hellos)(nil),              // 5: sprinkles.v1.Hellos
-	(*UpsertHellosRequest)(nil), // 6: sprinkles.v1.UpsertHellosRequest
-	(*Hello)(nil),               // 7: sprinkles.v1.Hello
+	(*Empty)(nil),                          // 0: sprinkles.v1.Empty
+	(*ListRequest)(nil),                    // 1: sprinkles.v1.ListRequest
+	(*DeleteRequest)(nil),                  // 2: sprinkles.v1.DeleteRequest
+	(*DeleteResponse)(nil),                 // 3: sprinkles.v1.DeleteResponse
+	(*GetRequest)(nil),                     // 4: sprinkles.v1.GetRequest
+	(*Hellos)(nil),                         // 5: sprinkles.v1.Hellos
+	(*UpsertHellosRequest)(nil),            // 6: sprinkles.v1.UpsertHellosRequest
+	(*OptionDefinitions)(nil),              // 7: sprinkles.v1.OptionDefinitions
+	(*UpsertOptionDefinitionsRequest)(nil), // 8: sprinkles.v1.UpsertOptionDefinitionsRequest
+	(*OptionOverrides)(nil),                // 9: sprinkles.v1.OptionOverrides
+	(*UpsertOptionOverridesRequest)(nil),   // 10: sprinkles.v1.UpsertOptionOverridesRequest
+	(*OptionGroupRequest)(nil),             // 11: sprinkles.v1.OptionGroupRequest
+	(*OptionValueRequest)(nil),             // 12: sprinkles.v1.OptionValueRequest
+	(*OptionValueResponse)(nil),            // 13: sprinkles.v1.OptionValueResponse
+	(*Hello)(nil),                          // 14: sprinkles.v1.Hello
+	(*OptionDefinition)(nil),               // 15: sprinkles.v1.OptionDefinition
+	(*OptionOverride)(nil),                 // 16: sprinkles.v1.OptionOverride
 }
 var file_sprinkles_v1_requests_proto_depIdxs = []int32{
-	7, // 0: sprinkles.v1.Hellos.hellos:type_name -> sprinkles.v1.Hello
-	7, // 1: sprinkles.v1.UpsertHellosRequest.hellos:type_name -> sprinkles.v1.Hello
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	14, // 0: sprinkles.v1.Hellos.hellos:type_name -> sprinkles.v1.Hello
+	14, // 1: sprinkles.v1.UpsertHellosRequest.hellos:type_name -> sprinkles.v1.Hello
+	15, // 2: sprinkles.v1.OptionDefinitions.option_definitions:type_name -> sprinkles.v1.OptionDefinition
+	15, // 3: sprinkles.v1.UpsertOptionDefinitionsRequest.option_definitions:type_name -> sprinkles.v1.OptionDefinition
+	16, // 4: sprinkles.v1.OptionOverrides.option_overrides:type_name -> sprinkles.v1.OptionOverride
+	16, // 5: sprinkles.v1.UpsertOptionOverridesRequest.option_overrides:type_name -> sprinkles.v1.OptionOverride
+	6,  // [6:6] is the sub-list for method output_type
+	6,  // [6:6] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_sprinkles_v1_requests_proto_init() }
@@ -537,6 +943,90 @@ func file_sprinkles_v1_requests_proto_init() {
 				return nil
 			}
 		}
+		file_sprinkles_v1_requests_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OptionDefinitions); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sprinkles_v1_requests_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpsertOptionDefinitionsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sprinkles_v1_requests_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OptionOverrides); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sprinkles_v1_requests_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpsertOptionOverridesRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sprinkles_v1_requests_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OptionGroupRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sprinkles_v1_requests_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OptionValueRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_sprinkles_v1_requests_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OptionValueResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -544,7 +1034,7 @@ func file_sprinkles_v1_requests_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_sprinkles_v1_requests_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

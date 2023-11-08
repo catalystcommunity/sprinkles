@@ -18,7 +18,12 @@ import type {
   RpcStatus,
   V1DeleteResponse,
   V1Hellos,
+  V1OptionDefinitions,
+  V1OptionOverrides,
+  V1OptionValueResponse,
   V1UpsertHellosRequest,
+  V1UpsertOptionDefinitionsRequest,
+  V1UpsertOptionOverridesRequest,
 } from '../models/index';
 import {
     RpcStatusFromJSON,
@@ -27,16 +32,51 @@ import {
     V1DeleteResponseToJSON,
     V1HellosFromJSON,
     V1HellosToJSON,
+    V1OptionDefinitionsFromJSON,
+    V1OptionDefinitionsToJSON,
+    V1OptionOverridesFromJSON,
+    V1OptionOverridesToJSON,
+    V1OptionValueResponseFromJSON,
+    V1OptionValueResponseToJSON,
     V1UpsertHellosRequestFromJSON,
     V1UpsertHellosRequestToJSON,
+    V1UpsertOptionDefinitionsRequestFromJSON,
+    V1UpsertOptionDefinitionsRequestToJSON,
+    V1UpsertOptionOverridesRequestFromJSON,
+    V1UpsertOptionOverridesRequestToJSON,
 } from '../models/index';
 
 export interface ApiDeleteHellosRequest {
     ids?: Array<string>;
 }
 
+export interface ApiDeleteOptionDefinitionsRequest {
+    ids?: Array<string>;
+}
+
+export interface ApiDeleteOptionOverridesRequest {
+    ids?: Array<string>;
+}
+
 export interface ApiGetHellosRequest {
     ids?: Array<string>;
+}
+
+export interface ApiGetOptionDefinitionsRequest {
+    ids?: Array<string>;
+}
+
+export interface ApiGetOptionOverridesRequest {
+    ids?: Array<string>;
+}
+
+export interface ApiGetOptionValueRequest {
+    name?: string;
+    ignoreGroups?: Array<string>;
+}
+
+export interface ApiGetOptionsByGroupRequest {
+    groups?: Array<string>;
 }
 
 export interface ApiListHellosRequest {
@@ -45,8 +85,28 @@ export interface ApiListHellosRequest {
     orderBy?: string;
 }
 
+export interface ApiListOptionDefinitionsRequest {
+    limit?: number;
+    offset?: number;
+    orderBy?: string;
+}
+
+export interface ApiListOptionOverridesRequest {
+    limit?: number;
+    offset?: number;
+    orderBy?: string;
+}
+
 export interface ApiUpsertHellosRequest {
     body: V1UpsertHellosRequest;
+}
+
+export interface ApiUpsertOptionDefinitionsRequest {
+    body: V1UpsertOptionDefinitionsRequest;
+}
+
+export interface ApiUpsertOptionOverridesRequest {
+    body: V1UpsertOptionOverridesRequest;
 }
 
 /**
@@ -76,11 +136,90 @@ export interface ApiApiInterface {
      * @throws {RequiredError}
      * @memberof ApiApiInterface
      */
+    apiDeleteOptionDefinitionsRaw(requestParameters: ApiDeleteOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1DeleteResponse>>;
+
+    /**
+     */
+    apiDeleteOptionDefinitions(requestParameters: ApiDeleteOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1DeleteResponse>;
+
+    /**
+     * 
+     * @param {Array<string>} [ids] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiDeleteOptionOverridesRaw(requestParameters: ApiDeleteOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1DeleteResponse>>;
+
+    /**
+     */
+    apiDeleteOptionOverrides(requestParameters: ApiDeleteOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1DeleteResponse>;
+
+    /**
+     * 
+     * @param {Array<string>} [ids] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
     apiGetHellosRaw(requestParameters: ApiGetHellosRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1Hellos>>;
 
     /**
      */
     apiGetHellos(requestParameters: ApiGetHellosRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1Hellos>;
+
+    /**
+     * 
+     * @param {Array<string>} [ids] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiGetOptionDefinitionsRaw(requestParameters: ApiGetOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionDefinitions>>;
+
+    /**
+     */
+    apiGetOptionDefinitions(requestParameters: ApiGetOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionDefinitions>;
+
+    /**
+     * 
+     * @param {Array<string>} [ids] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiGetOptionOverridesRaw(requestParameters: ApiGetOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionOverrides>>;
+
+    /**
+     */
+    apiGetOptionOverrides(requestParameters: ApiGetOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionOverrides>;
+
+    /**
+     * 
+     * @param {string} [name] 
+     * @param {Array<string>} [ignoreGroups] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiGetOptionValueRaw(requestParameters: ApiGetOptionValueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionValueResponse>>;
+
+    /**
+     */
+    apiGetOptionValue(requestParameters: ApiGetOptionValueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionValueResponse>;
+
+    /**
+     * 
+     * @param {Array<string>} [groups] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiGetOptionsByGroupRaw(requestParameters: ApiGetOptionsByGroupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionOverrides>>;
+
+    /**
+     */
+    apiGetOptionsByGroup(requestParameters: ApiGetOptionsByGroupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionOverrides>;
 
     /**
      * 
@@ -113,6 +252,36 @@ export interface ApiApiInterface {
 
     /**
      * 
+     * @param {number} [limit] 
+     * @param {number} [offset] 
+     * @param {string} [orderBy] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiListOptionDefinitionsRaw(requestParameters: ApiListOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionDefinitions>>;
+
+    /**
+     */
+    apiListOptionDefinitions(requestParameters: ApiListOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionDefinitions>;
+
+    /**
+     * 
+     * @param {number} [limit] 
+     * @param {number} [offset] 
+     * @param {string} [orderBy] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiListOptionOverridesRaw(requestParameters: ApiListOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionOverrides>>;
+
+    /**
+     */
+    apiListOptionOverrides(requestParameters: ApiListOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionOverrides>;
+
+    /**
+     * 
      * @summary Readiness check
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -137,6 +306,32 @@ export interface ApiApiInterface {
     /**
      */
     apiUpsertHellos(requestParameters: ApiUpsertHellosRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1Hellos>;
+
+    /**
+     * 
+     * @param {V1UpsertOptionDefinitionsRequest} body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiUpsertOptionDefinitionsRaw(requestParameters: ApiUpsertOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionDefinitions>>;
+
+    /**
+     */
+    apiUpsertOptionDefinitions(requestParameters: ApiUpsertOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionDefinitions>;
+
+    /**
+     * 
+     * @param {V1UpsertOptionOverridesRequest} body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiUpsertOptionOverridesRaw(requestParameters: ApiUpsertOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionOverrides>>;
+
+    /**
+     */
+    apiUpsertOptionOverrides(requestParameters: ApiUpsertOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionOverrides>;
 
 }
 
@@ -175,6 +370,62 @@ export class ApiApi extends runtime.BaseAPI implements ApiApiInterface {
 
     /**
      */
+    async apiDeleteOptionDefinitionsRaw(requestParameters: ApiDeleteOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1DeleteResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters['ids'] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/option_definitions/get`,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1DeleteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiDeleteOptionDefinitions(requestParameters: ApiDeleteOptionDefinitionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1DeleteResponse> {
+        const response = await this.apiDeleteOptionDefinitionsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiDeleteOptionOverridesRaw(requestParameters: ApiDeleteOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1DeleteResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters['ids'] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/option_overrides/get`,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1DeleteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiDeleteOptionOverrides(requestParameters: ApiDeleteOptionOverridesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1DeleteResponse> {
+        const response = await this.apiDeleteOptionOverridesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async apiGetHellosRaw(requestParameters: ApiGetHellosRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1Hellos>> {
         const queryParameters: any = {};
 
@@ -198,6 +449,122 @@ export class ApiApi extends runtime.BaseAPI implements ApiApiInterface {
      */
     async apiGetHellos(requestParameters: ApiGetHellosRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1Hellos> {
         const response = await this.apiGetHellosRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiGetOptionDefinitionsRaw(requestParameters: ApiGetOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionDefinitions>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters['ids'] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/option_definitions/get`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1OptionDefinitionsFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiGetOptionDefinitions(requestParameters: ApiGetOptionDefinitionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionDefinitions> {
+        const response = await this.apiGetOptionDefinitionsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiGetOptionOverridesRaw(requestParameters: ApiGetOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionOverrides>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.ids) {
+            queryParameters['ids'] = requestParameters.ids;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/option_overrides/get`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1OptionOverridesFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiGetOptionOverrides(requestParameters: ApiGetOptionOverridesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionOverrides> {
+        const response = await this.apiGetOptionOverridesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiGetOptionValueRaw(requestParameters: ApiGetOptionValueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionValueResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.name !== undefined) {
+            queryParameters['name'] = requestParameters.name;
+        }
+
+        if (requestParameters.ignoreGroups) {
+            queryParameters['ignore_groups'] = requestParameters.ignoreGroups;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/option_value/get`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1OptionValueResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiGetOptionValue(requestParameters: ApiGetOptionValueRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionValueResponse> {
+        const response = await this.apiGetOptionValueRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiGetOptionsByGroupRaw(requestParameters: ApiGetOptionsByGroupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionOverrides>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.groups) {
+            queryParameters['groups'] = requestParameters.groups;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/options_by_group/get`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1OptionOverridesFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiGetOptionsByGroup(requestParameters: ApiGetOptionsByGroupRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionOverrides> {
+        const response = await this.apiGetOptionsByGroupRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -264,6 +631,78 @@ export class ApiApi extends runtime.BaseAPI implements ApiApiInterface {
     }
 
     /**
+     */
+    async apiListOptionDefinitionsRaw(requestParameters: ApiListOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionDefinitions>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        if (requestParameters.orderBy !== undefined) {
+            queryParameters['orderBy'] = requestParameters.orderBy;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/option_definitions/list`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1OptionDefinitionsFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiListOptionDefinitions(requestParameters: ApiListOptionDefinitionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionDefinitions> {
+        const response = await this.apiListOptionDefinitionsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiListOptionOverridesRaw(requestParameters: ApiListOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionOverrides>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        if (requestParameters.orderBy !== undefined) {
+            queryParameters['orderBy'] = requestParameters.orderBy;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/option_overrides/list`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1OptionOverridesFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiListOptionOverrides(requestParameters: ApiListOptionOverridesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionOverrides> {
+        const response = await this.apiListOptionOverridesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Readiness check
      */
     async apiReadyRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
@@ -317,6 +756,68 @@ export class ApiApi extends runtime.BaseAPI implements ApiApiInterface {
      */
     async apiUpsertHellos(requestParameters: ApiUpsertHellosRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1Hellos> {
         const response = await this.apiUpsertHellosRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiUpsertOptionDefinitionsRaw(requestParameters: ApiUpsertOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionDefinitions>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling apiUpsertOptionDefinitions.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/v1/option_definitions`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: V1UpsertOptionDefinitionsRequestToJSON(requestParameters.body),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1OptionDefinitionsFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiUpsertOptionDefinitions(requestParameters: ApiUpsertOptionDefinitionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionDefinitions> {
+        const response = await this.apiUpsertOptionDefinitionsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiUpsertOptionOverridesRaw(requestParameters: ApiUpsertOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1OptionOverrides>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling apiUpsertOptionOverrides.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/v1/option_overrides`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: V1UpsertOptionOverridesRequestToJSON(requestParameters.body),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1OptionOverridesFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiUpsertOptionOverrides(requestParameters: ApiUpsertOptionOverridesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1OptionOverrides> {
+        const response = await this.apiUpsertOptionOverridesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
