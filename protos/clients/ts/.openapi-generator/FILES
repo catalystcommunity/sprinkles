@@ -10,6 +10,7 @@ src/models/ProtobufNullValue.ts
 src/models/RpcStatus.ts
 src/models/V1DeleteResponse.ts
 src/models/V1Group.ts
+src/models/V1Groups.ts
 src/models/V1Hello.ts
 src/models/V1HelloType.ts
 src/models/V1Hellos.ts
@@ -19,6 +20,7 @@ src/models/V1OptionOverride.ts
 src/models/V1OptionOverrides.ts
 src/models/V1OptionType.ts
 src/models/V1OptionValueResponse.ts
+src/models/V1UpsertGroupsRequest.ts
 src/models/V1UpsertHellosRequest.ts
 src/models/V1UpsertOptionDefinitionsRequest.ts
 src/models/V1UpsertOptionOverridesRequest.ts

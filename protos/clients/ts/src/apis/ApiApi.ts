@@ -17,10 +17,12 @@ import * as runtime from '../runtime';
 import type {
   RpcStatus,
   V1DeleteResponse,
+  V1Groups,
   V1Hellos,
   V1OptionDefinitions,
   V1OptionOverrides,
   V1OptionValueResponse,
+  V1UpsertGroupsRequest,
   V1UpsertHellosRequest,
   V1UpsertOptionDefinitionsRequest,
   V1UpsertOptionOverridesRequest,
@@ -30,6 +32,8 @@ import {
     RpcStatusToJSON,
     V1DeleteResponseFromJSON,
     V1DeleteResponseToJSON,
+    V1GroupsFromJSON,
+    V1GroupsToJSON,
     V1HellosFromJSON,
     V1HellosToJSON,
     V1OptionDefinitionsFromJSON,
@@ -38,6 +42,8 @@ import {
     V1OptionOverridesToJSON,
     V1OptionValueResponseFromJSON,
     V1OptionValueResponseToJSON,
+    V1UpsertGroupsRequestFromJSON,
+    V1UpsertGroupsRequestToJSON,
     V1UpsertHellosRequestFromJSON,
     V1UpsertHellosRequestToJSON,
     V1UpsertOptionDefinitionsRequestFromJSON,
@@ -45,6 +51,11 @@ import {
     V1UpsertOptionOverridesRequestFromJSON,
     V1UpsertOptionOverridesRequestToJSON,
 } from '../models/index';
+
+export interface ApiDeleteGroupsRequest {
+    name?: Array<string>;
+    forceCascade?: boolean;
+}
 
 export interface ApiDeleteHellosRequest {
     ids?: Array<string>;
@@ -79,6 +90,12 @@ export interface ApiGetOptionsByGroupRequest {
     groups?: Array<string>;
 }
 
+export interface ApiListGroupsRequest {
+    limit?: number;
+    offset?: number;
+    orderBy?: string;
+}
+
 export interface ApiListHellosRequest {
     limit?: number;
     offset?: number;
@@ -95,6 +112,10 @@ export interface ApiListOptionOverridesRequest {
     limit?: number;
     offset?: number;
     orderBy?: string;
+}
+
+export interface ApiUpsertGroupsRequest {
+    body: V1UpsertGroupsRequest;
 }
 
 export interface ApiUpsertHellosRequest {
@@ -116,6 +137,20 @@ export interface ApiUpsertOptionOverridesRequest {
  * @interface ApiApiInterface
  */
 export interface ApiApiInterface {
+    /**
+     * 
+     * @param {Array<string>} [name] 
+     * @param {boolean} [forceCascade] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiDeleteGroupsRaw(requestParameters: ApiDeleteGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1DeleteResponse>>;
+
+    /**
+     */
+    apiDeleteGroups(requestParameters: ApiDeleteGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1DeleteResponse>;
+
     /**
      * 
      * @param {Array<string>} [ids] 
@@ -244,6 +279,21 @@ export interface ApiApiInterface {
      * @throws {RequiredError}
      * @memberof ApiApiInterface
      */
+    apiListGroupsRaw(requestParameters: ApiListGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1Groups>>;
+
+    /**
+     */
+    apiListGroups(requestParameters: ApiListGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1Groups>;
+
+    /**
+     * 
+     * @param {number} [limit] 
+     * @param {number} [offset] 
+     * @param {string} [orderBy] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
     apiListHellosRaw(requestParameters: ApiListHellosRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1Hellos>>;
 
     /**
@@ -296,6 +346,19 @@ export interface ApiApiInterface {
 
     /**
      * 
+     * @param {V1UpsertGroupsRequest} body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiApiInterface
+     */
+    apiUpsertGroupsRaw(requestParameters: ApiUpsertGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1Groups>>;
+
+    /**
+     */
+    apiUpsertGroups(requestParameters: ApiUpsertGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1Groups>;
+
+    /**
+     * 
      * @param {V1UpsertHellosRequest} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -339,6 +402,38 @@ export interface ApiApiInterface {
  * 
  */
 export class ApiApi extends runtime.BaseAPI implements ApiApiInterface {
+
+    /**
+     */
+    async apiDeleteGroupsRaw(requestParameters: ApiDeleteGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1DeleteResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.name) {
+            queryParameters['name'] = requestParameters.name;
+        }
+
+        if (requestParameters.forceCascade !== undefined) {
+            queryParameters['force_cascade'] = requestParameters.forceCascade;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/groups`,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1DeleteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiDeleteGroups(requestParameters: ApiDeleteGroupsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1DeleteResponse> {
+        const response = await this.apiDeleteGroupsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      */
@@ -596,6 +691,42 @@ export class ApiApi extends runtime.BaseAPI implements ApiApiInterface {
 
     /**
      */
+    async apiListGroupsRaw(requestParameters: ApiListGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1Groups>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        if (requestParameters.orderBy !== undefined) {
+            queryParameters['orderBy'] = requestParameters.orderBy;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/groups/list`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1GroupsFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiListGroups(requestParameters: ApiListGroupsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1Groups> {
+        const response = await this.apiListGroupsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async apiListHellosRaw(requestParameters: ApiListHellosRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1Hellos>> {
         const queryParameters: any = {};
 
@@ -725,6 +856,37 @@ export class ApiApi extends runtime.BaseAPI implements ApiApiInterface {
      */
     async apiReady(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
         const response = await this.apiReadyRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiUpsertGroupsRaw(requestParameters: ApiUpsertGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1Groups>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling apiUpsertGroups.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/v1/groups`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: V1UpsertGroupsRequestToJSON(requestParameters.body),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V1GroupsFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiUpsertGroups(requestParameters: ApiUpsertGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V1Groups> {
+        const response = await this.apiUpsertGroupsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

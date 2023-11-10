@@ -78,6 +78,22 @@ service Api {
       post: "/v1/option_value/get"
     };
   }
+  rpc ListGroups(ListRequest) returns (Groups) {
+    option (google.api.http) = {
+      get: "/v1/groups/list"
+    };
+  }
+  rpc DeleteGroups(DeleteGroupRequest) returns (DeleteResponse) {
+    option (google.api.http) = {
+      delete: "/v1/groups"
+    };
+  }
+  rpc UpsertGroups(UpsertGroupsRequest) returns (Groups) {
+    option (google.api.http) = {
+      post: "/v1/groups"
+      body:"*"
+    };
+  }
 
   // Health check
   rpc Healthy(Empty) returns (Empty) {

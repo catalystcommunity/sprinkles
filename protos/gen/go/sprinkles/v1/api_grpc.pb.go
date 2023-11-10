@@ -33,6 +33,9 @@ const (
 	Api_UpsertOptionOverrides_FullMethodName   = "/sprinkles.v1.Api/UpsertOptionOverrides"
 	Api_GetOptionsByGroup_FullMethodName       = "/sprinkles.v1.Api/GetOptionsByGroup"
 	Api_GetOptionValue_FullMethodName          = "/sprinkles.v1.Api/GetOptionValue"
+	Api_ListGroups_FullMethodName              = "/sprinkles.v1.Api/ListGroups"
+	Api_DeleteGroups_FullMethodName            = "/sprinkles.v1.Api/DeleteGroups"
+	Api_UpsertGroups_FullMethodName            = "/sprinkles.v1.Api/UpsertGroups"
 	Api_Healthy_FullMethodName                 = "/sprinkles.v1.Api/Healthy"
 	Api_Ready_FullMethodName                   = "/sprinkles.v1.Api/Ready"
 )
@@ -55,6 +58,9 @@ type ApiClient interface {
 	UpsertOptionOverrides(ctx context.Context, in *UpsertOptionOverridesRequest, opts ...grpc.CallOption) (*OptionOverrides, error)
 	GetOptionsByGroup(ctx context.Context, in *OptionGroupRequest, opts ...grpc.CallOption) (*OptionOverrides, error)
 	GetOptionValue(ctx context.Context, in *OptionValueRequest, opts ...grpc.CallOption) (*OptionValueResponse, error)
+	ListGroups(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*Groups, error)
+	DeleteGroups(ctx context.Context, in *DeleteGroupRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
+	UpsertGroups(ctx context.Context, in *UpsertGroupsRequest, opts ...grpc.CallOption) (*Groups, error)
 	// Health check
 	Healthy(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error)
 	// Readiness check
@@ -195,6 +201,33 @@ func (c *apiClient) GetOptionValue(ctx context.Context, in *OptionValueRequest, 
 	return out, nil
 }
 
+func (c *apiClient) ListGroups(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*Groups, error) {
+	out := new(Groups)
+	err := c.cc.Invoke(ctx, Api_ListGroups_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *apiClient) DeleteGroups(ctx context.Context, in *DeleteGroupRequest, opts ...grpc.CallOption) (*DeleteResponse, error) {
+	out := new(DeleteResponse)
+	err := c.cc.Invoke(ctx, Api_DeleteGroups_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *apiClient) UpsertGroups(ctx context.Context, in *UpsertGroupsRequest, opts ...grpc.CallOption) (*Groups, error) {
+	out := new(Groups)
+	err := c.cc.Invoke(ctx, Api_UpsertGroups_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *apiClient) Healthy(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
 	err := c.cc.Invoke(ctx, Api_Healthy_FullMethodName, in, out, opts...)
@@ -231,6 +264,9 @@ type ApiServer interface {
 	UpsertOptionOverrides(context.Context, *UpsertOptionOverridesRequest) (*OptionOverrides, error)
 	GetOptionsByGroup(context.Context, *OptionGroupRequest) (*OptionOverrides, error)
 	GetOptionValue(context.Context, *OptionValueRequest) (*OptionValueResponse, error)
+	ListGroups(context.Context, *ListRequest) (*Groups, error)
+	DeleteGroups(context.Context, *DeleteGroupRequest) (*DeleteResponse, error)
+	UpsertGroups(context.Context, *UpsertGroupsRequest) (*Groups, error)
 	// Health check
 	Healthy(context.Context, *Empty) (*Empty, error)
 	// Readiness check
@@ -282,6 +318,15 @@ func (UnimplementedApiServer) GetOptionsByGroup(context.Context, *OptionGroupReq
 }
 func (UnimplementedApiServer) GetOptionValue(context.Context, *OptionValueRequest) (*OptionValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOptionValue not implemented")
+}
+func (UnimplementedApiServer) ListGroups(context.Context, *ListRequest) (*Groups, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListGroups not implemented")
+}
+func (UnimplementedApiServer) DeleteGroups(context.Context, *DeleteGroupRequest) (*DeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteGroups not implemented")
+}
+func (UnimplementedApiServer) UpsertGroups(context.Context, *UpsertGroupsRequest) (*Groups, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpsertGroups not implemented")
 }
 func (UnimplementedApiServer) Healthy(context.Context, *Empty) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Healthy not implemented")
@@ -553,6 +598,60 @@ func _Api_GetOptionValue_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Api_ListGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServer).ListGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Api_ListGroups_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServer).ListGroups(ctx, req.(*ListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Api_DeleteGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServer).DeleteGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Api_DeleteGroups_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServer).DeleteGroups(ctx, req.(*DeleteGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Api_UpsertGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpsertGroupsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServer).UpsertGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Api_UpsertGroups_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServer).UpsertGroups(ctx, req.(*UpsertGroupsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Api_Healthy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Empty)
 	if err := dec(in); err != nil {
@@ -651,6 +750,18 @@ var Api_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOptionValue",
 			Handler:    _Api_GetOptionValue_Handler,
+		},
+		{
+			MethodName: "ListGroups",
+			Handler:    _Api_ListGroups_Handler,
+		},
+		{
+			MethodName: "DeleteGroups",
+			Handler:    _Api_DeleteGroups_Handler,
+		},
+		{
+			MethodName: "UpsertGroups",
+			Handler:    _Api_UpsertGroups_Handler,
 		},
 		{
 			MethodName: "Healthy",

@@ -1658,3 +1658,375 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = OptionValueResponseValidationError{}
+
+// Validate checks the field values on Groups with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Groups) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Groups with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in GroupsMultiError, or nil if none found.
+func (m *Groups) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Groups) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetGroups() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GroupsValidationError{
+						field:  fmt.Sprintf("Groups[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GroupsValidationError{
+						field:  fmt.Sprintf("Groups[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GroupsValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GroupsMultiError(errors)
+	}
+
+	return nil
+}
+
+// GroupsMultiError is an error wrapping multiple validation errors returned by
+// Groups.ValidateAll() if the designated constraints aren't met.
+type GroupsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GroupsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GroupsMultiError) AllErrors() []error { return m }
+
+// GroupsValidationError is the validation error returned by Groups.Validate if
+// the designated constraints aren't met.
+type GroupsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GroupsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GroupsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GroupsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GroupsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GroupsValidationError) ErrorName() string { return "GroupsValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GroupsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGroups.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GroupsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GroupsValidationError{}
+
+// Validate checks the field values on UpsertGroupsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpsertGroupsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpsertGroupsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpsertGroupsRequestMultiError, or nil if none found.
+func (m *UpsertGroupsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpsertGroupsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetGroups() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpsertGroupsRequestValidationError{
+						field:  fmt.Sprintf("Groups[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpsertGroupsRequestValidationError{
+						field:  fmt.Sprintf("Groups[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpsertGroupsRequestValidationError{
+					field:  fmt.Sprintf("Groups[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UpsertGroupsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpsertGroupsRequestMultiError is an error wrapping multiple validation
+// errors returned by UpsertGroupsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UpsertGroupsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpsertGroupsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpsertGroupsRequestMultiError) AllErrors() []error { return m }
+
+// UpsertGroupsRequestValidationError is the validation error returned by
+// UpsertGroupsRequest.Validate if the designated constraints aren't met.
+type UpsertGroupsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpsertGroupsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpsertGroupsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpsertGroupsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpsertGroupsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpsertGroupsRequestValidationError) ErrorName() string {
+	return "UpsertGroupsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpsertGroupsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpsertGroupsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpsertGroupsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpsertGroupsRequestValidationError{}
+
+// Validate checks the field values on DeleteGroupRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteGroupRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteGroupRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteGroupRequestMultiError, or nil if none found.
+func (m *DeleteGroupRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteGroupRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ForceCascade
+
+	if len(errors) > 0 {
+		return DeleteGroupRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteGroupRequestMultiError is an error wrapping multiple validation errors
+// returned by DeleteGroupRequest.ValidateAll() if the designated constraints
+// aren't met.
+type DeleteGroupRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteGroupRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteGroupRequestMultiError) AllErrors() []error { return m }
+
+// DeleteGroupRequestValidationError is the validation error returned by
+// DeleteGroupRequest.Validate if the designated constraints aren't met.
+type DeleteGroupRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteGroupRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteGroupRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteGroupRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteGroupRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteGroupRequestValidationError) ErrorName() string {
+	return "DeleteGroupRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteGroupRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteGroupRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteGroupRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteGroupRequestValidationError{}
