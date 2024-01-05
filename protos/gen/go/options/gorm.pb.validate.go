@@ -1007,6 +1007,14 @@ func (m *GormFieldOptions) validate(all bool) error {
 
 	// no validation rules for EnumAsString
 
+	// no validation rules for OnUpdate
+
+	// no validation rules for OnDelete
+
+	// no validation rules for TimeFormatOverride
+
+	// no validation rules for Jsonb
+
 	switch v := m.Association.(type) {
 	case *GormFieldOptions_HasOne:
 		if v == nil {

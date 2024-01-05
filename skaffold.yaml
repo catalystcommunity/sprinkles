@@ -66,8 +66,26 @@ profiles:
             dependencies:
               dockerfile:
                 path: Dockerfile
-  - name: test
+  - name: test # puts things in a test namespace
     patches:
       - op: replace
         path: /deploy/helm/releases/0/namespace
         value: test
+  - name: no-server
+    patches:
+      - op: remove
+        path: /portForward/1
+      - op: remove
+        path: /portForward/0
+  - name: test-no-server
+    patches:
+      - op: replace
+        path: /portForward/2/namespace
+        value: test
+      - op: replace
+        path: /deploy/helm/releases/0/namespace
+        value: test
+      - op: remove
+        path: /portForward/1
+      - op: remove
+        path: /portForward/0

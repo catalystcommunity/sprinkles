@@ -26,4 +26,7 @@ type StorageInterface interface {
 	UpsertOptionOverrides(ctx context.Context, request *sprinklesv1.UpsertOptionOverridesRequest) ([]*sprinklesv1.OptionOverride, error)
 	GetOptionsByGroup(ctx context.Context, request *sprinklesv1.OptionGroupRequest) ([]*sprinklesv1.OptionOverride, error)
 	GetOptionValue(ctx context.Context, request *sprinklesv1.OptionValueRequest) (*sprinklesv1.OptionValueResponse, error)
+	ListGroups(ctx context.Context, request *sprinklesv1.ListRequest) (*sprinklesv1.Groups, error)
+	DeleteGroups(ctx context.Context, request *sprinklesv1.DeleteGroupRequest) error
+	UpsertGroups(ctx context.Context, request *sprinklesv1.UpsertGroupsRequest) (*sprinklesv1.Groups, error)
 }

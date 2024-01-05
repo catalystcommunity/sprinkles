@@ -8,7 +8,7 @@ import (
 
 func (p PostgresStorage) UpsertOptionDefinitions(ctx context.Context, request *sprinklesv1.UpsertOptionDefinitionsRequest) ([]*sprinklesv1.OptionDefinition, error) {
 	protos := sprinklesv1.OptionDefinitionProtos(request.OptionDefinitions)
-	err := protos.Upsert(ctx, db, nil, nil, true)
+	_, err := protos.Upsert(ctx, db)
 	return protos, err
 }
 

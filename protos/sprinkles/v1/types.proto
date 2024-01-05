@@ -48,10 +48,10 @@ message OptionOverride {
   google.protobuf.Timestamp created_at = 2 [json_name = "created_at"];
   // @gotags: fake:"skip"
   google.protobuf.Timestamp updated_at = 3 [json_name = "updated_at"];
-  OptionDefinition option_definition = 4 [(gorm.field).has_one = {}];
+  OptionDefinition option_definition = 4 [(gorm.field).belongs_to = {}];
   // @gotags: fake:"{beername}"
   string option_value = 5 [json_name = "option_value"];
-  Group group = 6 [(gorm.field).has_one = {}];
+  Group group = 6 [(gorm.field).belongs_to = {}];
 }
 
 message Group {

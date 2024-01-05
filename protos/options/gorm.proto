@@ -128,4 +128,8 @@ message GormFieldOptions {
   }
   bool ignore = 7;
   bool enum_as_string = 8;
+  string on_update = 9;
+  string on_delete = 10;
+  string time_format_override = 11;
+  bool jsonb = 12;
 }

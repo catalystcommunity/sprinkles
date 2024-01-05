@@ -126,53 +126,29 @@ func (m HelloGormModels) GetByModelIds(ctx context.Context, tx *gorm.DB, preload
 	return
 }
 
-func (p *HelloProtos) Upsert(ctx context.Context, tx *gorm.DB, selects, omits []string, fullSaveAssociations bool, preloads ...string) (err error) {
+// Upsert creates the protos using an on conflict clause to do updates. This function does not update *any* associations
+// use gorm's association mode functions to update associations as you see fit after calling upsert. See https://gorm.io/docs/associations.html#Replace-Associations
+func (p *HelloProtos) Upsert(ctx context.Context, tx *gorm.DB) (models HelloGormModels, err error) {
 	if p != nil {
-		omitMap := map[string]bool{}
-		for _, omit := range omits {
-			omitMap[omit] = true
-		}
-		creates, updates := []*HelloGormModel{}, []*HelloGormModel{}
-		nilUid := uuid.Nil.String()
-		var model *HelloGormModel
 		for _, proto := range *p {
-			if model, err = proto.ToModel(); err != nil {
-				return
-			} else {
-				if model.Id != nil && *model.Id != "" && *model.Id != nilUid {
-					updates = append(updates, model)
-				} else {
-					creates = append(creates, model)
-				}
+			if proto.Id == nil {
+				proto.Id = lo.ToPtr(uuid.New().String())
 			}
 		}
-		session := tx.Select(selects).Omit(omits...).Session(&gorm.Session{FullSaveAssociations: fullSaveAssociations})
-		if len(creates) > 0 {
-			if err = session.Create(&creates).Error; err != nil {
-				return
-			}
-		}
-		if len(updates) > 0 {
-			toSave := []*HelloGormModel{}
-			for _, update := range updates {
-				thing := &HelloGormModel{}
-				*thing = *update
-				toSave = append(toSave, thing)
-			}
-			if err = session.Save(&toSave).Error; err != nil {
-				return
-			}
-		}
-		models := HelloGormModels{}
-		models = append(creates, updates...)
-		if err = models.GetByModelIds(ctx, tx, preloads...); err != nil {
+		models, err = p.ToModels()
+		if err != nil {
 			return
 		}
-		if len(models) > 0 {
-			*p, err = models.ToProtos()
-		} else {
-			*p = HelloProtos{}
-		}
+		// create new session so the tx isn't modified
+		session := tx.Session(&gorm.Session{})
+		err = session.
+			// on conflict, update all fields
+			Clauses(clause.OnConflict{
+				UpdateAll: true,
+			}).
+			// exclude associations from upsert
+			Omit(clause.Associations).
+			Create(&models).Error
 	}
 	return
 }
@@ -387,53 +363,29 @@ func (m OptionDefinitionGormModels) GetByModelIds(ctx context.Context, tx *gorm.
 	return
 }
 
-func (p *OptionDefinitionProtos) Upsert(ctx context.Context, tx *gorm.DB, selects, omits []string, fullSaveAssociations bool, preloads ...string) (err error) {
+// Upsert creates the protos using an on conflict clause to do updates. This function does not update *any* associations
+// use gorm's association mode functions to update associations as you see fit after calling upsert. See https://gorm.io/docs/associations.html#Replace-Associations
+func (p *OptionDefinitionProtos) Upsert(ctx context.Context, tx *gorm.DB) (models OptionDefinitionGormModels, err error) {
 	if p != nil {
-		omitMap := map[string]bool{}
-		for _, omit := range omits {
-			omitMap[omit] = true
-		}
-		creates, updates := []*OptionDefinitionGormModel{}, []*OptionDefinitionGormModel{}
-		nilUid := uuid.Nil.String()
-		var model *OptionDefinitionGormModel
 		for _, proto := range *p {
-			if model, err = proto.ToModel(); err != nil {
-				return
-			} else {
-				if model.Id != nil && *model.Id != "" && *model.Id != nilUid {
-					updates = append(updates, model)
-				} else {
-					creates = append(creates, model)
-				}
+			if proto.Id == nil {
+				proto.Id = lo.ToPtr(uuid.New().String())
 			}
 		}
-		session := tx.Select(selects).Omit(omits...).Session(&gorm.Session{FullSaveAssociations: fullSaveAssociations})
-		if len(creates) > 0 {
-			if err = session.Create(&creates).Error; err != nil {
-				return
-			}
-		}
-		if len(updates) > 0 {
-			toSave := []*OptionDefinitionGormModel{}
-			for _, update := range updates {
-				thing := &OptionDefinitionGormModel{}
-				*thing = *update
-				toSave = append(toSave, thing)
-			}
-			if err = session.Save(&toSave).Error; err != nil {
-				return
-			}
-		}
-		models := OptionDefinitionGormModels{}
-		models = append(creates, updates...)
-		if err = models.GetByModelIds(ctx, tx, preloads...); err != nil {
+		models, err = p.ToModels()
+		if err != nil {
 			return
 		}
-		if len(models) > 0 {
-			*p, err = models.ToProtos()
-		} else {
-			*p = OptionDefinitionProtos{}
-		}
+		// create new session so the tx isn't modified
+		session := tx.Session(&gorm.Session{})
+		err = session.
+			// on conflict, update all fields
+			Clauses(clause.OnConflict{
+				UpdateAll: true,
+			}).
+			// exclude associations from upsert
+			Omit(clause.Associations).
+			Create(&models).Error
 	}
 	return
 }
@@ -608,65 +560,29 @@ func (m OptionOverrideGormModels) GetByModelIds(ctx context.Context, tx *gorm.DB
 	return
 }
 
-func (p *OptionOverrideProtos) Upsert(ctx context.Context, tx *gorm.DB, selects, omits []string, fullSaveAssociations bool, preloads ...string) (err error) {
+// Upsert creates the protos using an on conflict clause to do updates. This function does not update *any* associations
+// use gorm's association mode functions to update associations as you see fit after calling upsert. See https://gorm.io/docs/associations.html#Replace-Associations
+func (p *OptionOverrideProtos) Upsert(ctx context.Context, tx *gorm.DB) (models OptionOverrideGormModels, err error) {
 	if p != nil {
-		omitMap := map[string]bool{}
-		for _, omit := range omits {
-			omitMap[omit] = true
-		}
-		creates, updates := []*OptionOverrideGormModel{}, []*OptionOverrideGormModel{}
-		nilUid := uuid.Nil.String()
-		var model *OptionOverrideGormModel
 		for _, proto := range *p {
-			if model, err = proto.ToModel(); err != nil {
-				return
-			} else {
-				if model.Id != nil && *model.Id != "" && *model.Id != nilUid {
-					updates = append(updates, model)
-				} else {
-					creates = append(creates, model)
-				}
+			if proto.Id == nil {
+				proto.Id = lo.ToPtr(uuid.New().String())
 			}
 		}
-		session := tx.Select(selects).Omit(omits...).Session(&gorm.Session{FullSaveAssociations: fullSaveAssociations})
-		if len(creates) > 0 {
-			if err = session.Create(&creates).Error; err != nil {
-				return
-			}
-		}
-		if len(updates) > 0 {
-			toSave := []*OptionOverrideGormModel{}
-			for _, update := range updates {
-				thing := &OptionOverrideGormModel{}
-				*thing = *update
-				toSave = append(toSave, thing)
-			}
-			if !omitMap["OptionDefinition"] {
-				clearOptionDefinitionStatement := tx.Model(&updates).Association("OptionDefinition").Unscoped()
-				if err = clearOptionDefinitionStatement.Clear(); err != nil {
-					return
-				}
-			}
-			if !omitMap["Group"] {
-				clearGroupStatement := tx.Model(&updates).Association("Group").Unscoped()
-				if err = clearGroupStatement.Clear(); err != nil {
-					return
-				}
-			}
-			if err = session.Save(&toSave).Error; err != nil {
-				return
-			}
-		}
-		models := OptionOverrideGormModels{}
-		models = append(creates, updates...)
-		if err = models.GetByModelIds(ctx, tx, preloads...); err != nil {
+		models, err = p.ToModels()
+		if err != nil {
 			return
 		}
-		if len(models) > 0 {
-			*p, err = models.ToProtos()
-		} else {
-			*p = OptionOverrideProtos{}
-		}
+		// create new session so the tx isn't modified
+		session := tx.Session(&gorm.Session{})
+		err = session.
+			// on conflict, update all fields
+			Clauses(clause.OnConflict{
+				UpdateAll: true,
+			}).
+			// exclude associations from upsert
+			Omit(clause.Associations).
+			Create(&models).Error
 	}
 	return
 }
@@ -828,53 +744,29 @@ func (m GroupGormModels) GetByModelIds(ctx context.Context, tx *gorm.DB, preload
 	return
 }
 
-func (p *GroupProtos) Upsert(ctx context.Context, tx *gorm.DB, selects, omits []string, fullSaveAssociations bool, preloads ...string) (err error) {
+// Upsert creates the protos using an on conflict clause to do updates. This function does not update *any* associations
+// use gorm's association mode functions to update associations as you see fit after calling upsert. See https://gorm.io/docs/associations.html#Replace-Associations
+func (p *GroupProtos) Upsert(ctx context.Context, tx *gorm.DB) (models GroupGormModels, err error) {
 	if p != nil {
-		omitMap := map[string]bool{}
-		for _, omit := range omits {
-			omitMap[omit] = true
-		}
-		creates, updates := []*GroupGormModel{}, []*GroupGormModel{}
-		nilUid := uuid.Nil.String()
-		var model *GroupGormModel
 		for _, proto := range *p {
-			if model, err = proto.ToModel(); err != nil {
-				return
-			} else {
-				if model.Id != nil && *model.Id != "" && *model.Id != nilUid {
-					updates = append(updates, model)
-				} else {
-					creates = append(creates, model)
-				}
+			if proto.Id == nil {
+				proto.Id = lo.ToPtr(uuid.New().String())
 			}
 		}
-		session := tx.Select(selects).Omit(omits...).Session(&gorm.Session{FullSaveAssociations: fullSaveAssociations})
-		if len(creates) > 0 {
-			if err = session.Create(&creates).Error; err != nil {
-				return
-			}
-		}
-		if len(updates) > 0 {
-			toSave := []*GroupGormModel{}
-			for _, update := range updates {
-				thing := &GroupGormModel{}
-				*thing = *update
-				toSave = append(toSave, thing)
-			}
-			if err = session.Save(&toSave).Error; err != nil {
-				return
-			}
-		}
-		models := GroupGormModels{}
-		models = append(creates, updates...)
-		if err = models.GetByModelIds(ctx, tx, preloads...); err != nil {
+		models, err = p.ToModels()
+		if err != nil {
 			return
 		}
-		if len(models) > 0 {
-			*p, err = models.ToProtos()
-		} else {
-			*p = GroupProtos{}
-		}
+		// create new session so the tx isn't modified
+		session := tx.Session(&gorm.Session{})
+		err = session.
+			// on conflict, update all fields
+			Clauses(clause.OnConflict{
+				UpdateAll: true,
+			}).
+			// exclude associations from upsert
+			Omit(clause.Associations).
+			Create(&models).Error
 	}
 	return
 }

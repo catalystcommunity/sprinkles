@@ -53,7 +53,7 @@ import {
 } from '../models/index';
 
 export interface ApiDeleteGroupsRequest {
-    name?: Array<string>;
+    names?: Array<string>;
     forceCascade?: boolean;
 }
 
@@ -139,7 +139,7 @@ export interface ApiUpsertOptionOverridesRequest {
 export interface ApiApiInterface {
     /**
      * 
-     * @param {Array<string>} [name] 
+     * @param {Array<string>} [names] 
      * @param {boolean} [forceCascade] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -408,8 +408,8 @@ export class ApiApi extends runtime.BaseAPI implements ApiApiInterface {
     async apiDeleteGroupsRaw(requestParameters: ApiDeleteGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V1DeleteResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.name) {
-            queryParameters['name'] = requestParameters.name;
+        if (requestParameters.names) {
+            queryParameters['names'] = requestParameters.names;
         }
 
         if (requestParameters.forceCascade !== undefined) {

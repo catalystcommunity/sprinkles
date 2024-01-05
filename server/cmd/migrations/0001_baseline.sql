@@ -34,7 +34,7 @@ create table option_overrides
 ( id                         uuid default uuid_generate_v4() not null primary key
 , created_at                 timestamp default now()
 , updated_at                 timestamp default now()
-, option_definition_id       uuid not null references option_definitions on delete cascade
+, option_definition_id       uuid not null references option_definitions(id) on delete cascade
 , option_value               jsonb not null
-, group_id                   uuid not null references groups on delete cascade
+, group_id                   uuid not null references groups(id) on delete cascade
 );

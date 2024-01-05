@@ -8,44 +8,34 @@ import (
 	"google.golang.org/protobuf/testing/protocmp"
 )
 
-func (s *SprinklesSuite) TestListOptionDefinitions() {
-	OptionDefinitions, err := ListOptionDefinitions(1000, 0, "")
+func (s *SprinklesSuite) TestListGroups() {
+	ServerGroups, err := ListGroups(1000, 0, "")
+	require.Len(s.T(), ServerGroups, 0)
+	groups := CreateGroups(s.T(), 3)
+	require.Len(s.T(), groups, 3)
+	ServerGroups, err = ListGroups(1000, 0, "")
 	require.NoError(s.T(), err)
-	OptionDefinitions = lo.Filter(OptionDefinitions, func(item *sprinklesv1.OptionDefinition, index int) bool {
-		return LoadedTestData.OptionDefinitionIds.Contains(lo.FromPtr(item.Id))
-	})
-	assertProtoEqualitySortById(s.T(), LoadedTestData.OptionDefinitions, OptionDefinitions)
+	require.Len(s.T(), ServerGroups, 0)
 }
 
-func (s *SprinklesSuite) TestGetOptionDefinitions() {
-	ids := []string{}
-	for _, id := range LoadedTestData.OptionDefinitionIds.Values() {
-		ids = append(ids, id.(string))
-	}
-	OptionDefinitions, err := GetOptionDefinitions(ids)
+func (s *SprinklesSuite) TestUpdateGroups() {
+	groups := CreateRandomNumGroups(s.T())
+	randomizedGroups := randomizeGroups(s.T(), groups)
+	updatedGroups, err := UpsertGroups(randomizedGroups)
 	require.NoError(s.T(), err)
-	assertProtoEqualitySortById(s.T(), LoadedTestData.OptionDefinitions, OptionDefinitions)
-}
-
-func (s *SprinklesSuite) TestUpdateOptionDefinitions() {
-	optionDefinitions := CreateRandomNumOptionDefinitions(s.T())
-	randomizedOptionDefinitions := randomizeOptionDefinitions(s.T(), optionDefinitions)
-	updatedOptionDefinitions, err := UpsertOptionDefinitions(randomizedOptionDefinitions)
-	require.NoError(s.T(), err)
-
-	assertProtoEqualitySortById(s.T(), randomizedOptionDefinitions, updatedOptionDefinitions,
-		protocmp.IgnoreFields(&sprinklesv1.OptionDefinition{}, "id", "updated_at", "name", "description", "default_value", "option_type", "schema"),
+	assertProtoEqualitySortById(s.T(), randomizedGroups, updatedGroups,
+		protocmp.IgnoreFields(&sprinklesv1.Group{}, "id", "updated_at", "name", "description", "default_value", "option_type", "schema"),
 	)
 }
 
-func (s *SprinklesSuite) TestDeleteOptionDefinitions() {
-	OptionDefinitions := CreateRandomNumOptionDefinitions(s.T())
-	ids := lo.Map(OptionDefinitions, func(item *sprinklesv1.OptionDefinition, index int) string {
-		return lo.FromPtr(item.Id)
+func (s *SprinklesSuite) TestDeleteGroups() {
+	Groups := CreateRandomNumGroups(s.T())
+	names := lo.Map(Groups, func(item *sprinklesv1.Group, index int) string {
+		return item.GroupName
 	})
-	err := DeleteOptionDefinitions(ids)
+	err := DeleteGroups(names)
 	require.NoError(s.T(), err)
-	OptionDefinitions, err = GetOptionDefinitions(ids)
+	Groups, err = ListGroups(1000, 0, "")
 	require.NoError(s.T(), err)
-	require.Len(s.T(), OptionDefinitions, 0)
+	require.Len(s.T(), Groups, 0)
 }

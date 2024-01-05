@@ -131,3 +131,33 @@ func UpsertOptionOverrides(option_overrides []*sprinklesv1.OptionOverride) ([]*s
 		return response.OptionOverrides, err
 	}
 }
+
+func ListGroups(limit, offset int, orderBy string) ([]*sprinklesv1.Group, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	response, err := ApiClient.ListGroups(ctx, &sprinklesv1.ListRequest{Limit: int32(limit), Offset: int32(offset), OrderBy: orderBy})
+	if err != nil {
+		return nil, err
+	}
+	return response.Groups, err
+}
+
+func DeleteGroups(names []string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	_, err := ApiClient.DeleteGroups(ctx, &sprinklesv1.DeleteGroupRequest{Names: names, ForceCascade: true})
+	return err
+}
+
+func UpsertGroups(option_overrides []*sprinklesv1.Group) ([]*sprinklesv1.Group, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	response, err := ApiClient.UpsertGroups(ctx, &sprinklesv1.UpsertGroupsRequest{Groups: option_overrides})
+	if err != nil {
+		return nil, err
+	} else if response == nil {
+		return nil, nil
+	} else {
+		return response.Groups, err
+	}
+}

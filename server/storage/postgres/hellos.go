@@ -2,13 +2,14 @@ package postgres
 
 import (
 	"context"
+
 	sprinklesv1 "github.com/catalystcommunity/sprinkles/protos/gen/go/sprinkles/v1"
 	"github.com/joomcode/errorx"
 )
 
 func (p PostgresStorage) UpsertHellos(ctx context.Context, request *sprinklesv1.UpsertHellosRequest) ([]*sprinklesv1.Hello, error) {
 	helloProtos := sprinklesv1.HelloProtos(request.Hellos)
-	err := helloProtos.Upsert(ctx, db, nil, nil, true)
+	_, err := helloProtos.Upsert(ctx, db)
 	return helloProtos, err
 }
 

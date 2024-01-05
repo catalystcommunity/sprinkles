@@ -72,6 +72,6 @@ message UpsertGroupsRequest {
 }
 
 message DeleteGroupRequest {
-  repeated string name = 1 [json_name = "name"];
+  repeated string names = 1 [json_name = "names"];
   bool force_cascade = 2 [json_name = "force_cascade"];
 }

@@ -17,6 +17,8 @@ type TestData struct {
 	OptionDefinitionIds *hashset.Set
 	OptionOverrides     []*sprinklesv1.OptionOverride
 	OptionOverrideIds   *hashset.Set
+	Groups              []*sprinklesv1.Group
+	GroupNames          []string
 }
 
 var LoadedTestData = TestData{}
@@ -29,13 +31,15 @@ func loadTestData(t *testing.T) {
 func loadAllData(t *testing.T) {
 	loadHellos(t)
 	loadOptionDefinitions(t)
+	loadGroups(t)
 	loadOptionOverrides(t)
 }
 
 func deleteAllData(t *testing.T) {
 	deleteHellos(t)
-	deleteOptionDefinitions(t)
 	deleteOptionOverrides(t)
+	deleteGroups(t)
+	deleteOptionDefinitions(t)
 }
 
 func deleteHellos(t *testing.T) {
@@ -192,6 +196,59 @@ func randomizeOptionOverrides(t *testing.T, option_overrides []*sprinklesv1.Opti
 		random.Id = option_override.Id
 		random.UpdatedAt = option_override.UpdatedAt
 		random.CreatedAt = option_override.CreatedAt
+		randomized = append(randomized, random)
+	}
+	return randomized
+}
+
+func deleteGroups(t *testing.T) {
+	groups, err := ListGroups(1000, 0, "")
+	require.NoError(t, err)
+	ids := lo.Map(groups, func(item *sprinklesv1.Group, index int) string {
+		return lo.FromPtr(item.Id)
+	})
+	require.NoError(t, DeleteGroups(ids))
+}
+
+func loadGroups(t *testing.T) {
+	groups := CreateRandomNumGroups(t)
+	LoadedTestData.Groups = groups
+	LoadedTestData.GroupNames = []string{}
+	for _, group := range groups {
+		LoadedTestData.GroupNames = append(LoadedTestData.GroupNames, group.GroupName)
+	}
+}
+
+func CreateRandomNumGroups(t *testing.T) []*sprinklesv1.Group {
+	return CreateGroups(t, gofakeit.Number(5, 10))
+}
+
+func CreateGroups(t *testing.T, num int) []*sprinklesv1.Group {
+	var err error
+	groups := []*sprinklesv1.Group{}
+	for i := 0; i < num; i++ {
+		group := createRandomGroupProto(t)
+		groups = append(groups, group)
+	}
+	groups, err = UpsertGroups(groups)
+	require.NoError(t, err)
+	return groups
+}
+
+func createRandomGroupProto(t *testing.T) *sprinklesv1.Group {
+	group := &sprinklesv1.Group{}
+	err := gofakeit.Struct(group)
+	require.NoError(t, err)
+	return group
+}
+
+func randomizeGroups(t *testing.T, groups []*sprinklesv1.Group) []*sprinklesv1.Group {
+	randomized := []*sprinklesv1.Group{}
+	for _, group := range groups {
+		random := createRandomGroupProto(t)
+		random.GroupName = group.GroupName
+		random.UpdatedAt = group.UpdatedAt
+		random.CreatedAt = group.CreatedAt
 		randomized = append(randomized, random)
 	}
 	return randomized

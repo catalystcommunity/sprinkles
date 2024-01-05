@@ -28,7 +28,7 @@ func (p PostgresStorage) DeleteOptionOverrides(ctx context.Context, ids []string
 
 func (p PostgresStorage) UpsertOptionOverrides(ctx context.Context, request *sprinklesv1.UpsertOptionOverridesRequest) ([]*sprinklesv1.OptionOverride, error) {
 	helloProtos := sprinklesv1.OptionOverrideProtos(request.OptionOverrides)
-	err := helloProtos.Upsert(ctx, db, nil, nil, true)
+	_, err := helloProtos.Upsert(ctx, db)
 	return helloProtos, err
 }
 
