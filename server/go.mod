@@ -5,8 +5,8 @@ go 1.21
 require (
 	github.com/brianvoe/gofakeit/v6 v6.25.0
 	github.com/catalystcommunity/sprinkles/protos v0.0.0-20231105022154-0a7fcffd5145
-	github.com/catalystsquad/app-utils-go v1.0.7
-	github.com/catalystsquad/grpc-base-go v1.0.5
+	github.com/catalystcommunity/app-utils-go v1.0.7
+	github.com/catalystcommunity/grpc-base-go v1.0.5
 	github.com/emirpasic/gods v1.18.1
 	github.com/google/go-cmp v0.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1

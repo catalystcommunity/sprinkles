@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/catalystsquad/app-utils-go/errorutils"
-	"github.com/catalystsquad/app-utils-go/logging"
-	"github.com/catalystsquad/grpc-base-go/pkg"
+	"github.com/catalystcommunity/app-utils-go/errorutils"
+	"github.com/catalystcommunity/app-utils-go/logging"
+	"github.com/catalystcommunity/grpc-base-go/pkg"
 	sprinklesv1 "github.com/catalystcommunity/sprinkles/protos/gen/go/sprinkles/v1"
 	"github.com/catalystcommunity/sprinkles/server/config"
 	"github.com/catalystcommunity/sprinkles/server/handlers"

@@ -57,6 +57,8 @@ func (m *GormFileOptions) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Generate
+
 	if len(errors) > 0 {
 		return GormFileOptionsMultiError(errors)
 	}
@@ -1003,6 +1005,122 @@ func (m *GormFieldOptions) validate(all bool) error {
 
 	// no validation rules for GormTag
 
+	if all {
+		switch v := interface{}(m.GetHasOne()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GormFieldOptionsValidationError{
+					field:  "HasOne",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GormFieldOptionsValidationError{
+					field:  "HasOne",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetHasOne()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GormFieldOptionsValidationError{
+				field:  "HasOne",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetBelongsTo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GormFieldOptionsValidationError{
+					field:  "BelongsTo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GormFieldOptionsValidationError{
+					field:  "BelongsTo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBelongsTo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GormFieldOptionsValidationError{
+				field:  "BelongsTo",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetHasMany()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GormFieldOptionsValidationError{
+					field:  "HasMany",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GormFieldOptionsValidationError{
+					field:  "HasMany",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetHasMany()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GormFieldOptionsValidationError{
+				field:  "HasMany",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetManyToMany()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GormFieldOptionsValidationError{
+					field:  "ManyToMany",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GormFieldOptionsValidationError{
+					field:  "ManyToMany",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetManyToMany()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GormFieldOptionsValidationError{
+				field:  "ManyToMany",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	// no validation rules for Ignore
 
 	// no validation rules for EnumAsString
@@ -1014,175 +1132,6 @@ func (m *GormFieldOptions) validate(all bool) error {
 	// no validation rules for TimeFormatOverride
 
 	// no validation rules for Jsonb
-
-	switch v := m.Association.(type) {
-	case *GormFieldOptions_HasOne:
-		if v == nil {
-			err := GormFieldOptionsValidationError{
-				field:  "Association",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetHasOne()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GormFieldOptionsValidationError{
-						field:  "HasOne",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, GormFieldOptionsValidationError{
-						field:  "HasOne",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetHasOne()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GormFieldOptionsValidationError{
-					field:  "HasOne",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *GormFieldOptions_BelongsTo:
-		if v == nil {
-			err := GormFieldOptionsValidationError{
-				field:  "Association",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetBelongsTo()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GormFieldOptionsValidationError{
-						field:  "BelongsTo",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, GormFieldOptionsValidationError{
-						field:  "BelongsTo",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetBelongsTo()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GormFieldOptionsValidationError{
-					field:  "BelongsTo",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *GormFieldOptions_HasMany:
-		if v == nil {
-			err := GormFieldOptionsValidationError{
-				field:  "Association",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetHasMany()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GormFieldOptionsValidationError{
-						field:  "HasMany",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, GormFieldOptionsValidationError{
-						field:  "HasMany",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetHasMany()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GormFieldOptionsValidationError{
-					field:  "HasMany",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	case *GormFieldOptions_ManyToMany:
-		if v == nil {
-			err := GormFieldOptionsValidationError{
-				field:  "Association",
-				reason: "oneof value cannot be a typed-nil",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if all {
-			switch v := interface{}(m.GetManyToMany()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GormFieldOptionsValidationError{
-						field:  "ManyToMany",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, GormFieldOptionsValidationError{
-						field:  "ManyToMany",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetManyToMany()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return GormFieldOptionsValidationError{
-					field:  "ManyToMany",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	default:
-		_ = v // ensures v is used
-	}
 
 	if len(errors) > 0 {
 		return GormFieldOptionsMultiError(errors)

@@ -1,6 +1,6 @@
 # sprinkles
 
-Generated via copier from github.com/catalystsquad/copier-go-cobra-app
+Generated via copier from github.com/catalystcommunity/copier-go-cobra-app
 
 In order to run this code you will need the following on your path:
 - buf
