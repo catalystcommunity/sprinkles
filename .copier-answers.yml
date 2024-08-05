@@ -1,6 +1,6 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
 _commit: 7f32bd1
-_src_path: ../catalystsquad/copier-go-cobra-app/
+_src_path: ../catalystcommunity/copier-go-cobra-app/
 codeowners_group: engineers
 create_codeowners: true
 create_settings: true

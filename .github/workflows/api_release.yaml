@@ -30,14 +30,14 @@ jobs:
         git config --global user.email "<engineering@catalystsquad.com>"
     - name: Get semver-tags
       run: |
-        wget -c https://github.com/catalystsquad/semver-tags/releases/download/v0.3.3/semver-tags.tar.gz -O - | tar -xz
+        wget -c https://github.com/catalystcommunity/semver-tags/releases/download/v0.3.3/semver-tags.tar.gz -O - | tar -xz
     - name: Semver Tags Run
       id: semver-tags
       run: |
         bash ./.github/scripts/do-chart-release.sh fullrun . helm_chart
     - if: steps.semver-tags.outputs.RELEASED_CHANGES == 'true'
       name: Build and push image to quay.io
-      uses: catalystsquad/action-build-push-image-quay@v1
+      uses: catalystcommunity/action-build-push-image-quay@v1
       with:
         checkout: false
         tag-versions: latest,${{ steps.semver-tags.outputs.NEW_VERSION }}
